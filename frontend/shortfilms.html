@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieMark | Short Films</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .films-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .films-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .films-title h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      color: #111827;
+    }
+
+    .films-title p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 15px;
+    }
+
+    .films-search input {
+      width: 280px;
+      max-width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+      background: #ffffff;
+    }
+
+    .films-search input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .films-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .film-card {
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .film-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .film-thumbnail {
+      position: relative;
+      height: 190px;
+      background: linear-gradient(135deg, #1d4ed8, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .play-badge {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #111827;
+      padding: 8px 12px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .film-content {
+      padding: 20px;
+    }
+
+    .film-content h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #111827;
+    }
+
+    .film-meta {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 12px;
+    }
+
+    .film-description {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .film-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .film-tags span {
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .film-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .film-actions a,
+    .film-actions button {
+      flex: 1;
+      min-width: 120px;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: 0.25s ease;
+    }
+
+    .watch-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .watch-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .connect-btn {
+      background: #16a34a;
+      color: white;
+    }
+
+    .connect-btn:hover {
+      background: #15803d;
+    }
+
+    .no-result {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 768px) {
+      .films-title h1 {
+        font-size: 28px;
+      }
+
+      .films-search input {
+        width: 100%;
+      }
+
+      .film-thumbnail {
+        height: 170px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="films-page">
+    <div class="films-header">
+      <div class="films-title">
+        <h1>Short Films</h1>
+        <p>Discover creative short films uploaded by the MovieMark community.</p>
+      </div>
+
+      <div class="films-search">
+        <input type="text" id="filmSearch" placeholder="Search short films..." />
+      </div>
+    </div>
+
+    <div class="films-grid" id="filmsGrid">
+
+      <div class="film-card">
+        <div class="film-thumbnail">
+          Midnight Frame
+          <div class="play-badge">▶ Watch</div>
+        </div>
+        <div class="film-content">
+          <h3>Midnight Frame</h3>
+          <div class="film-meta">By Aarya Patil • 12 min</div>
+          <p class="film-description">
+            A photographer captures a hidden truth in the city after midnight, changing her life forever.
+          </p>
+          <div class="film-tags">
+            <span>Thriller</span>
+            <span>Drama</span>
+          </div>
+          <div class="film-actions">
+            <a href="watch.html" class="watch-btn">Watch Now</a>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumbnail">
+          Last Take
+          <div class="play-badge">▶ Watch</div>
+        </div>
+        <div class="film-content">
+          <h3>Last Take</h3>
+          <div class="film-meta">By Rohan Deshmukh • 18 min</div>
+          <p class="film-description">
+            A young director gets one final chance to prove himself before his dream project is cancelled.
+          </p>
+          <div class="film-tags">
+            <span>Film</span>
+            <span>Motivation</span>
+          </div>
+          <div class="film-actions">
+            <a href="watch.html" class="watch-btn">Watch Now</a>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumbnail">
+          Silent Echo
+          <div class="play-badge">▶ Watch</div>
+        </div>
+        <div class="film-content">
+          <h3>Silent Echo</h3>
+          <div class="film-meta">By Neha Kulkarni • 9 min</div>
+          <p class="film-description">
+            A dancer learns to express emotions through movement after losing her voice in an accident.
+          </p>
+          <div class="film-tags">
+            <span>Emotional</span>
+            <span>Art</span>
+          </div>
+          <div class="film-actions">
+            <a href="watch.html" class="watch-btn">Watch Now</a>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumbnail">
+          The Station Bench
+          <div class="play-badge">▶ Watch</div>
+        </div>
+        <div class="film-content">
+          <h3>The Station Bench</h3>
+          <div class="film-meta">By Siddharth Mane • 14 min</div>
+          <p class="film-description">
+            Two strangers meet at a railway station and discover a connection from their forgotten past.
+          </p>
+          <div class="film-tags">
+            <span>Romance</span>
+            <span>Drama</span>
+          </div>
+          <div class="film-actions">
+            <a href="watch.html" class="watch-btn">Watch Now</a>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumbnail">
+          Dark Rehearsal
+          <div class="play-badge">▶ Watch</div>
+        </div>
+        <div class="film-content">
+          <h3>Dark Rehearsal</h3>
+          <div class="film-meta">By Meera Shah • 11 min</div>
+          <p class="film-description">
+            A theatre group rehearses a play, but one scene starts revealing real secrets of the cast.
+          </p>
+          <div class="film-tags">
+            <span>Mystery</span>
+            <span>Theatre</span>
+          </div>
+          <div class="film-actions">
+            <a href="watch.html" class="watch-btn">Watch Now</a>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumbnail">
+          Broken Signal
+          <div class="play-badge">▶ Watch</div>
+        </div>
+        <div class="film-content">
+          <h3>Broken Signal</h3>
+          <div class="film-meta">By Kunal Jadhav • 16 min</div>
+          <p class="film-description">
+            A radio host receives a mysterious late-night call that leads him into a dangerous investigation.
+          </p>
+          <div class="film-tags">
+            <span>Suspense</span>
+            <span>Crime</span>
+          </div>
+          <div class="film-actions">
+            <a href="watch.html" class="watch-btn">Watch Now</a>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="no-result" id="noResultMessage">No short films found.</p>
+  </div>
+
+  <script>
+    const filmSearch = document.getElementById("filmSearch");
+    const filmCards = document.querySelectorAll(".film-card");
+    const noResultMessage = document.getElementById("noResultMessage");
+
+    filmSearch.addEventListener("keyup", function () {
+      const searchValue = filmSearch.value.toLowerCase();
+      let visibleCount = 0;
+
+      filmCards.forEach(function (card) {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        const meta = card.querySelector(".film-meta").textContent.toLowerCase();
+        const description = card.querySelector(".film-description").textContent.toLowerCase();
+
+        if (
+          title.includes(searchValue) ||
+          meta.includes(searchValue) ||
+          description.includes(searchValue)
+        ) {
+          card.style.display = "block";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      noResultMessage.style.display = visibleCount === 0 ? "block" : "none";
+    });
+  </script>
+
+</body>
+</html>

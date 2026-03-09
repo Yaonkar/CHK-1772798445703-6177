@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieMark | Request Collaboration</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <section class="request-page">
+    <div class="request-container">
+      <div class="request-header">
+        <h1>Collaboration Request</h1>
+        <p>Send a request to connect and work on a film project together.</p>
+      </div>
+
+      <div class="request-card">
+        <form id="requestForm" class="request-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="projectTitle">Project Title</label>
+              <input type="text" id="projectTitle" placeholder="Enter project title" required />
+            </div>
+
+            <div class="form-group">
+              <label for="creatorName">Creator Name</label>
+              <input type="text" id="creatorName" placeholder="Enter creator name" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="roleNeeded">Role Needed</label>
+              <select id="roleNeeded" required>
+                <option value="">Select role</option>
+                <option value="Writer">Writer</option>
+                <option value="Director">Director</option>
+                <option value="Actor">Actor</option>
+                <option value="Editor">Editor</option>
+                <option value="Producer">Producer</option>
+                <option value="Cinematographer">Cinematographer</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="deadline">Expected Timeline</label>
+              <input type="text" id="deadline" placeholder="e.g. 2 weeks / 1 month" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="projectDescription">Project Description</label>
+            <textarea id="projectDescription" placeholder="Write about your project..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="requestMessage">Message</label>
+            <textarea id="requestMessage" placeholder="Write your collaboration message..." required></textarea>
+          </div>
+
+          <button type="submit" class="request-btn">Send Request</button>
+
+          <p id="requestMessageBox" class="request-message"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/request.js"></script>
+</body>
+</html>

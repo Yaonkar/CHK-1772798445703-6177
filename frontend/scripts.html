@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MovieMark | Scripts</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+background:#f5f5f5;
+margin:0;
+}
+
+.scripts-container{
+max-width:1200px;
+margin:60px auto;
+padding:20px;
+}
+
+.scripts-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.scripts-header h1{
+margin:0;
+}
+
+.search-box input{
+padding:10px;
+width:250px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.scripts-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.script-card{
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.script-card h3{
+margin-top:0;
+}
+
+.script-writer{
+color:#666;
+font-size:14px;
+margin-bottom:10px;
+}
+
+.script-desc{
+font-size:14px;
+color:#444;
+margin-bottom:15px;
+}
+
+.script-buttons{
+display:flex;
+gap:10px;
+}
+
+.script-buttons button{
+flex:1;
+padding:8px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:13px;
+}
+
+.read-btn{
+background:#2563eb;
+color:white;
+}
+
+.request-btn{
+background:#16a34a;
+color:white;
+}
+
+.read-btn:hover{
+background:#1e40af;
+}
+
+.request-btn:hover{
+background:#15803d;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="scripts-container">
+
+<div class="scripts-header">
+
+<h1>Explore Scripts</h1>
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search scripts...">
+</div>
+
+</div>
+
+
+
+<div class="scripts-grid" id="scriptsGrid">
+
+
+<div class="script-card">
+
+<h3>Chakravyuh</h3>
+<p class="script-writer">Writer: Arjun Verma</p>
+
+<p class="script-desc">
+A young warrior must enter a deadly battlefield strategy he only partially understands.
+</p>
+
+<div class="script-buttons">
+<button class="read-btn">Read Script</button>
+<button class="request-btn">Request</button>
+</div>
+
+</div>
+
+
+
+<div class="script-card">
+
+<h3>City Shadows</h3>
+<p class="script-writer">Writer: Neha Kapoor</p>
+
+<p class="script-desc">
+A detective uncovers a dark conspiracy hidden within the city's elite.
+</p>
+
+<div class="script-buttons">
+<button class="read-btn">Read Script</button>
+<button class="request-btn">Request</button>
+</div>
+
+</div>
+
+
+
+<div class="script-card">
+
+<h3>The Last Scene</h3>
+<p class="script-writer">Writer: Rohan Desai</p>
+
+<p class="script-desc">
+A struggling filmmaker gets one final chance to make the movie of his dreams.
+</p>
+
+<div class="script-buttons">
+<button class="read-btn">Read Script</button>
+<button class="request-btn">Request</button>
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup",function(){
+
+let filter = searchInput.value.toLowerCase();
+
+let cards = document.querySelectorAll(".script-card");
+
+cards.forEach(card => {
+
+let title = card.querySelector("h3").innerText.toLowerCase();
+
+if(title.includes(filter)){
+card.style.display="block";
+}
+else{
+card.style.display="none";
+}
+
+});
+
+});
+
+</script>
+
+
+</body>
+</html>

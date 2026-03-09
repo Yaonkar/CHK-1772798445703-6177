@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MovieMark | Watch Film</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+margin:0;
+background:#f4f4f4;
+}
+
+.watch-container{
+max-width:1000px;
+margin:60px auto;
+padding:20px;
+}
+
+.video-section{
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.video-player{
+width:100%;
+border-radius:6px;
+}
+
+.video-info{
+margin-top:20px;
+}
+
+.video-info h2{
+margin:0 0 10px 0;
+}
+
+.creator{
+color:#666;
+font-size:14px;
+margin-bottom:10px;
+}
+
+.description{
+color:#444;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.action-buttons{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.action-buttons button{
+padding:10px 16px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:14px;
+}
+
+.request-btn{
+background:#16a34a;
+color:white;
+}
+
+.profile-btn{
+background:#2563eb;
+color:white;
+}
+
+.request-btn:hover{
+background:#15803d;
+}
+
+.profile-btn:hover{
+background:#1e40af;
+}
+
+.related-section{
+margin-top:40px;
+}
+
+.related-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.related-card{
+background:white;
+padding:15px;
+border-radius:6px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.related-card h4{
+margin:10px 0 5px 0;
+}
+
+.related-card p{
+font-size:13px;
+color:#666;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="watch-container">
+
+
+<div class="video-section">
+
+<video class="video-player" controls>
+
+<source src="sample-video.mp4" type="video/mp4">
+
+Your browser does not support video playback.
+
+</video>
+
+
+<div class="video-info">
+
+<h2>The Last Scene</h2>
+
+<p class="creator">Creator: Rohan Desai</p>
+
+<p class="description">
+A struggling filmmaker receives one final opportunity to prove himself.
+This short film explores passion, creativity, and the determination
+to achieve dreams despite obstacles.
+</p>
+
+
+<div class="action-buttons">
+
+<button class="request-btn">Request Collaboration</button>
+
+<button class="profile-btn">View Creator Profile</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="related-section">
+
+<h3>More Short Films</h3>
+
+<div class="related-grid">
+
+
+<div class="related-card">
+
+<h4>City Shadows</h4>
+
+<p>Crime thriller about hidden secrets in the city.</p>
+
+</div>
+
+
+<div class="related-card">
+
+<h4>Broken Frame</h4>
+
+<p>A photographer uncovers a mysterious truth.</p>
+
+</div>
+
+
+<div class="related-card">
+
+<h4>Silent Voice</h4>
+
+<p>A story of expression through music and emotion.</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</body>
+
+</html>
