@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieMark | Project Chatroom</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Segoe UI", Arial, sans-serif;
+    }
+
+    :root{
+      --bg-1:#020617;
+      --bg-2:#0f172a;
+      --bg-3:#1e293b;
+      --glass:rgba(255,255,255,0.06);
+      --glass-strong:rgba(255,255,255,0.1);
+      --border:rgba(255,255,255,0.12);
+      --white:#ffffff;
+      --text-soft:#cbd5e1;
+      --text-muted:#94a3b8;
+      --gold:#fbbf24;
+      --gold-dark:#f59e0b;
+      --blue:#60a5fa;
+      --blue-dark:#2563eb;
+      --purple:#7c3aed;
+      --green:#22c55e;
+      --red:#ef4444;
+      --shadow:0 20px 45px rgba(0,0,0,0.35);
+      --radius:20px;
+      --transition:0.3s ease;
+    }
+
+    body{
+      min-height:100vh;
+      color:var(--white);
+      background:
+        radial-gradient(circle at top left, rgba(251,191,36,0.12), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(37,99,235,0.16), transparent 28%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2), #172554);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size:34px 34px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+    }
+
+    .chatroom-page{
+      width:100%;
+      min-height:100vh;
+      padding:28px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .chatroom-container{
+      width:100%;
+      max-width:1320px;
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .chatroom-sidebar,
+    .chatroom-main{
+      background:var(--glass);
+      border:1px solid var(--border);
+      backdrop-filter:blur(14px);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .chatroom-sidebar{
+      padding:22px;
+      position:sticky;
+      top:22px;
+    }
+
+    .brand-box{
+      margin-bottom:20px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .brand-box h2{
+      font-size:30px;
+      font-weight:800;
+      background:linear-gradient(90deg, var(--gold), var(--blue));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .brand-box p{
+      color:var(--text-soft);
+      margin-top:6px;
+      font-size:14px;
+    }
+
+    .info-card{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:16px;
+      margin-bottom:16px;
+    }
+
+    .info-card h3{
+      color:var(--gold);
+      font-size:16px;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    .info-card p,
+    .info-card li{
+      color:var(--text-soft);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .participants-box ul{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .participants-box li{
+      padding:10px 12px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px;
+      font-weight:600;
+    }
+
+    .participants-box li::before{
+      content:"●";
+      color:var(--green);
+      margin-right:8px;
+    }
+
+    .chatroom-main{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      min-height:760px;
+    }
+
+    .chatroom-header{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:start;
+      margin-bottom:18px;
+    }
+
+    .chatroom-header-left h1{
+      font-size:38px;
+      font-weight:800;
+      line-height:1.15;
+      margin-bottom:10px;
+      letter-spacing:-0.5px;
+    }
+
+    .chatroom-header-left p{
+      color:var(--text-soft);
+      margin-bottom:6px;
+    }
+
+    .chatroom-topic{
+      color:var(--gold);
+      font-weight:700;
+    }
+
+    .chatroom-time-panel{
+      min-width:240px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .chatroom-time-panel h3{
+      color:var(--blue);
+      font-size:15px;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    .time-remaining{
+      font-size:30px;
+      font-weight:800;
+      color:var(--gold);
+      margin-bottom:8px;
+    }
+
+    .time-meta{
+      color:var(--text-soft);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .chatroom-status-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+      margin-bottom:18px;
+    }
+
+    .status-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(34,197,94,0.12);
+      border:1px solid rgba(34,197,94,0.2);
+      color:#86efac;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .status-badge.closed{
+      background:rgba(239,68,68,0.12);
+      border:1px solid rgba(239,68,68,0.2);
+      color:#fca5a5;
+    }
+
+    .chatroom-note{
+      color:var(--text-soft);
+      font-size:14px;
+    }
+
+    .chat-box{
+      flex:1;
+      min-height:420px;
+      max-height:520px;
+      overflow-y:auto;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .chat-message{
+      max-width:72%;
+      padding:14px 16px;
+      border-radius:16px;
+      line-height:1.6;
+      position:relative;
+      box-shadow:0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .chat-message strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:14px;
+    }
+
+    .chat-message small{
+      display:block;
+      margin-top:6px;
+      color:rgba(255,255,255,0.7);
+      font-size:12px;
+    }
+
+    .received{
+      align-self:flex-start;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.10);
+      color:#fff;
+    }
+
+    .sent{
+      align-self:flex-end;
+      background:linear-gradient(135deg, #2563eb, #7c3aed);
+      color:#fff;
+    }
+
+    .system-message{
+      align-self:center;
+      max-width:100%;
+      background:rgba(251,191,36,0.10);
+      border:1px solid rgba(251,191,36,0.18);
+      color:#fde68a;
+      font-weight:700;
+      text-align:center;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+    }
+
+    .chat-input-area{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .chat-input-area input{
+      width:100%;
+      padding:14px 15px;
+      border:none;
+      outline:none;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.10);
+      color:#fff;
+      border-radius:12px;
+      transition:var(--transition);
+    }
+
+    .chat-input-area input::placeholder{
+      color:var(--text-muted);
+    }
+
+    .chat-input-area input:focus{
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(251,191,36,0.18);
+    }
+
+    .chat-input-area button{
+      padding:14px 22px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color:#111827;
+      font-weight:800;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:0 10px 25px rgba(251,191,36,0.25);
+    }
+
+    .chat-input-area button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 32px rgba(251,191,36,0.35);
+    }
+
+    .closed-room-box{
+      margin-top:16px;
+      display:none;
+      padding:16px 18px;
+      border-radius:16px;
+      background:rgba(239,68,68,0.12);
+      border:1px solid rgba(239,68,68,0.2);
+      color:#fecaca;
+      font-weight:700;
+      line-height:1.7;
+    }
+
+    .closed-room-box.show{
+      display:block;
+    }
+
+    .chat-box::-webkit-scrollbar{
+      width:8px;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb{
+      background:linear-gradient(180deg, var(--gold), var(--blue));
+      border-radius:20px;
+    }
+
+    @media(max-width:1100px){
+      .chatroom-container{
+        grid-template-columns:1fr;
+      }
+
+      .chatroom-sidebar{
+        position:relative;
+        top:0;
+      }
+    }
+
+    @media(max-width:768px){
+      .chatroom-page{
+        padding:18px;
+      }
+
+      .chatroom-main,
+      .chatroom-sidebar{
+        padding:18px;
+      }
+
+      .chatroom-header{
+        grid-template-columns:1fr;
+      }
+
+      .chatroom-header-left h1{
+        font-size:30px;
+      }
+
+      .chat-box{
+        max-height:440px;
+      }
+
+      .chat-message{
+        max-width:88%;
+      }
+
+      .chat-input-area{
+        grid-template-columns:1fr;
+      }
+
+      .chat-input-area button{
+        width:100%;
+      }
+    }
+
+    @media(max-width:500px){
+      .brand-box h2{
+        font-size:26px;
+      }
+
+      .chatroom-header-left h1{
+        font-size:26px;
+      }
+
+      .time-remaining{
+        font-size:24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="chatroom-page">
+    <div class="chatroom-container">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="chatroom-sidebar">
+        <div class="brand-box">
+          <h2>MovieMark</h2>
+          <p>Temporary Collaboration Chatroom</p>
+        </div>
+
+        <div class="info-card">
+          <h3>Room Details</h3>
+          <p><strong id="chatroomTitleSide">Script Development Meeting</strong></p>
+          <p id="chatroomTopicSide">Topic: Horror Short Film</p>
+          <p id="chatroomDescription">
+            Admin-created discussion room for project planning, creative decisions, and team coordination.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>Session Window</h3>
+          <p><strong>Start:</strong> <span id="chatroomStart">07:00 PM</span></p>
+          <p><strong>End:</strong> <span id="chatroomEnd">08:00 PM</span></p>
+          <p><strong>Status:</strong> <span id="chatroomLiveStatus">Active</span></p>
+        </div>
+
+        <div class="info-card participants-box">
+          <h3>Participants</h3>
+          <ul id="participantsList">
+            <li>Rahul</li>
+            <li>Neha</li>
+            <li>You</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CHAT AREA -->
+      <main class="chatroom-main">
+
+        <div class="chatroom-header">
+          <div class="chatroom-header-left">
+            <h1 id="chatroomTitle">Script Development Meeting</h1>
+            <p class="chatroom-topic" id="chatroomTopic">Topic: Horror Short Film Discussion</p>
+            <p id="chatroomSubtext">
+              A temporary admin-scheduled room for project discussion, planning, and collaboration.
+            </p>
+          </div>
+
+          <div class="chatroom-time-panel">
+            <h3>Time Remaining</h3>
+            <div class="time-remaining" id="chatroomTimeRemaining">42m 18s</div>
+            <div class="time-meta">
+              Ends at <span id="chatroomTime">08:00 PM</span><br>
+              Join, discuss, and collaborate before the room closes.
+            </div>
+          </div>
+        </div>
+
+        <div class="chatroom-status-bar">
+          <div class="status-badge" id="roomStatusBadge">● Room Active</div>
+          <div class="chatroom-note" id="chatroomNotice">
+            This chatroom is visible to users for the duration decided by admin.
+          </div>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+          <div class="system-message">Admin has opened this temporary project discussion room.</div>
+
+          <div class="chat-message received">
+            <strong>Rahul</strong>
+            Hey team, should we finalize the visual tone before locking the shot list?
+            <small>07:12 PM</small>
+          </div>
+
+          <div class="chat-message sent">
+            <strong>You</strong>
+            Yes, I think we should freeze the moodboard first and then continue with shot division.
+            <small>07:14 PM</small>
+          </div>
+
+          <div class="chat-message received">
+            <strong>Neha</strong>
+            I can complete the revised script draft and upload it before tonight ends.
+            <small>07:16 PM</small>
+          </div>
+        </div>
+
+        <div class="chat-input-area" id="chatInputArea">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Type your message for this project discussion..."
+          />
+          <button id="sendBtn">Send Message</button>
+        </div>
+
+        <div class="closed-room-box" id="closedRoomBox">
+          This chatroom session has ended. Admin-defined time is over, so users can no longer send messages in this room.
+        </div>
+
+      </main>
+
+    </div>
+  </section>
+
+  <script src="js/chat.js"></script>
+</body>
+</html>

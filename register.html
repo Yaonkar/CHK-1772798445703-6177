@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MovieMark | Register</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="register-page">
+
+<div class="register-card">
+
+<div class="register-header">
+
+<h1>🎬 MovieMark</h1>
+<p>Join the filmmaker collaboration platform</p>
+
+</div>
+
+<form id="registerForm" class="register-form">
+
+<h2>Create Account</h2>
+
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" id="name" placeholder="Enter your full name" required>
+</div>
+
+<div class="form-group">
+<label>Email Address</label>
+<input type="email" id="email" placeholder="Enter your email" required>
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="password" placeholder="Create password" required>
+</div>
+
+<div class="form-group">
+
+<label>Select Your Roles</label>
+
+<div class="roles-grid">
+
+<label class="role-chip"><input type="checkbox" value="Writer"> ✍ Writer</label>
+<label class="role-chip"><input type="checkbox" value="Director"> 🎬 Director</label>
+<label class="role-chip"><input type="checkbox" value="Actor"> 🎭 Actor</label>
+<label class="role-chip"><input type="checkbox" value="Editor"> ✂ Editor</label>
+<label class="role-chip"><input type="checkbox" value="Producer"> 💼 Producer</label>
+<label class="role-chip"><input type="checkbox" value="Cinematographer"> 📷 Cinematographer</label>
+<label class="role-chip"><input type="checkbox" value="Sound Designer"> 🔊 Sound Designer</label>
+<label class="role-chip"><input type="checkbox" value="Music Composer"> 🎼 Music Composer</label>
+<label class="role-chip"><input type="checkbox" value="VFX Artist"> 🖥 VFX Artist</label>
+<label class="role-chip"><input type="checkbox" value="Colorist"> 🎨 Colorist</label>
+<label class="role-chip"><input type="checkbox" value="Production Designer"> 🏗 Production Designer</label>
+<label class="role-chip"><input type="checkbox" value="Assistant Director"> 📋 Assistant Director</label>
+
+</div>
+
+</div>
+
+<div class="form-group">
+<label>Short Bio</label>
+<textarea id="bio" placeholder="Tell us about your filmmaking journey"></textarea>
+</div>
+
+<button type="submit" class="register-btn">Create Account</button>
+
+<p id="registerMessage" class="register-message"></p>
+
+<div class="login-link">
+Already have an account?
+<a href="login.html">Login</a>
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>

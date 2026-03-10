@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MovieMark | Filmmaker Collaboration Platform</title>
+
+<style>
+
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+background:#f4f6fb;
+color:#1e293b;
+line-height:1.6;
+}
+
+/* NAVBAR */
+
+header{
+background:#0f172a;
+color:white;
+padding:18px 0;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.logo{
+font-size:26px;
+font-weight:bold;
+color:#60a5fa;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:500;
+}
+
+nav a:hover{
+color:#60a5fa;
+}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(135deg,#1d4ed8,#0f172a);
+color:white;
+padding:90px 0;
+}
+
+.hero-grid{
+display:grid;
+grid-template-columns:1.3fr 1fr;
+gap:40px;
+align-items:center;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:18px;
+margin-bottom:25px;
+color:#dbeafe;
+}
+
+.hero-buttons a{
+display:inline-block;
+padding:14px 25px;
+border-radius:8px;
+text-decoration:none;
+margin-right:10px;
+font-weight:600;
+}
+
+.btn-primary{
+background:white;
+color:#1d4ed8;
+}
+
+.btn-secondary{
+background:rgba(255,255,255,0.2);
+color:white;
+}
+
+.hero-card{
+background:rgba(255,255,255,0.08);
+padding:25px;
+border-radius:15px;
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.hero-card h3{
+margin-bottom:15px;
+}
+
+.hero-card ul{
+padding-left:20px;
+line-height:1.9;
+}
+
+/* SECTION */
+
+section{
+padding:70px 0;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:40px;
+}
+
+.section-title h2{
+font-size:36px;
+margin-bottom:10px;
+}
+
+.section-title p{
+color:#64748b;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+/* CARDS */
+
+.card{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+color:#2563eb;
+margin-bottom:10px;
+}
+
+/* WORKFLOW */
+
+.workflow-step span{
+font-size:26px;
+font-weight:bold;
+color:#1d4ed8;
+}
+
+/* CTA */
+
+.cta{
+background:linear-gradient(135deg,#2563eb,#0f172a);
+color:white;
+text-align:center;
+padding:60px 20px;
+border-radius:15px;
+}
+
+.cta h2{
+font-size:36px;
+margin-bottom:10px;
+}
+
+.cta p{
+margin-bottom:20px;
+}
+
+/* FOOTER */
+
+footer{
+background:#0f172a;
+color:white;
+padding:40px 0;
+}
+
+.footer-grid{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.footer-links a{
+display:block;
+color:white;
+text-decoration:none;
+margin-bottom:8px;
+}
+
+.footer-bottom{
+text-align:center;
+margin-top:25px;
+color:#cbd5e1;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.hero-grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+.section-title h2{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header>
+
+<div class="container navbar">
+
+<div class="logo">🎬 MovieMark</div>
+
+<nav>
+
+<a href="#">Home</a>
+<a href="scripts.html">Scripts</a>
+<a href="shortfilms.html">Short Films</a>
+<a href="contact.html">Contact</a>
+<a href="login.html">Login</a>
+<a href="register.html">Register</a>
+<a href="admin_login.html">Admin</a>
+
+</nav>
+
+</div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container hero-grid">
+
+<div>
+
+<h1>Where Stories Meet Creators</h1>
+
+<p>
+MovieMark is a filmmaker collaboration platform where writers,
+directors, actors, editors, filmmakers, and film lovers connect
+to transform ideas into real film projects.
+</p>
+
+<div class="hero-buttons">
+
+<a href="register.html" class="btn-primary">Get Started</a>
+<a href="login.html" class="btn-secondary">Login</a>
+
+</div>
+
+</div>
+
+<div class="hero-card">
+
+<h3>Build Real Film Projects</h3>
+
+<ul>
+<li>Upload and explore scripts</li>
+<li>Share short films with the community</li>
+<li>Connect with directors, actors, and editors</li>
+<li>Send collaboration requests</li>
+<li>Discuss projects in chatrooms</li>
+<li>Discover top ranked scripts</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>About MovieMark</h2>
+
+<p>
+MovieMark connects creative professionals in filmmaking and enables collaboration on real film projects.
+</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Creative Collaboration</h3>
+
+<p>
+MovieMark brings writers, directors, actors, editors and filmmakers together on one platform to develop stories collaboratively.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Story Discovery</h3>
+
+<p>
+Writers can upload scripts and gain visibility among directors and producers searching for powerful stories.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Project Growth</h3>
+
+<p>
+Selected scripts can move toward development, pre-production, and team formation.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ROLES -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Who Can Use MovieMark?</h2>
+
+<p>The platform supports every role in filmmaking.</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card"><h3>✍ Writers</h3><p>Upload scripts and share creative ideas.</p></div>
+
+<div class="card"><h3>🎬 Directors</h3><p>Find stories and build creative teams.</p></div>
+
+<div class="card"><h3>🎭 Actors</h3><p>Discover acting opportunities.</p></div>
+
+<div class="card"><h3>✂ Editors</h3><p>Collaborate in post-production.</p></div>
+
+<div class="card"><h3>🎥 Filmmakers</h3><p>Upload and showcase short films.</p></div>
+
+<div class="card"><h3>🎞 Film Lovers</h3><p>Explore stories and support creators.</p></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Platform Features</h2>
+
+<p>Powerful tools for creators and filmmakers.</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card"><h3>Script Upload</h3><p>Writers can upload and showcase their scripts.</p></div>
+
+<div class="card"><h3>Short Film Upload</h3><p>Filmmakers can upload short films.</p></div>
+
+<div class="card"><h3>Script Discovery</h3><p>Explore scripts shared by creators.</p></div>
+
+<div class="card"><h3>Collaboration Requests</h3><p>Invite creators to join projects.</p></div>
+
+<div class="card"><h3>Chatroom</h3><p>Communicate and plan projects.</p></div>
+
+<div class="card"><h3>Script Ranking</h3><p>Community engagement helps highlight top stories.</p></div>
+
+<div class="card"><h3>Admin Moderation</h3><p>Admins manage users and scripts.</p></div>
+
+<div class="card"><h3>Project Development</h3><p>Strong scripts move toward production.</p></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- WORKFLOW -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>How MovieMark Works</h2>
+
+</div>
+
+<div class="grid workflow-step">
+
+<div class="card"><span>1</span><h3>Create Account</h3><p>Join the platform as a filmmaker.</p></div>
+
+<div class="card"><span>2</span><h3>Upload Content</h3><p>Share scripts or films.</p></div>
+
+<div class="card"><span>3</span><h3>Connect Creators</h3><p>Find collaborators.</p></div>
+
+<div class="card"><span>4</span><h3>Build Projects</h3><p>Develop stories into films.</p></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section>
+
+<div class="container">
+
+<div class="cta">
+
+<h2>Start Your Filmmaking Journey Today</h2>
+
+<p>Join MovieMark and collaborate with creators worldwide.</p>
+
+<a href="register.html" class="btn-primary">Create Account</a>
+<a href="scripts.html" class="btn-secondary">Explore Scripts</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container footer-grid">
+
+<div>
+
+<h3>🎬 MovieMark</h3>
+
+<p>
+A filmmaker collaboration platform helping creators connect,
+collaborate, and transform stories into films.
+</p>
+
+</div>
+
+<div class="footer-links">
+
+<a href="#">Home</a>
+<a href="register.html">Register</a>
+<a href="login.html">Login</a>
+<a href="scripts.html">Scripts</a>
+<a href="shortfilms.html">Short Films</a>
+<a href="contact.html">Contact</a>
+<a href="admin_login.html">Admin Login</a>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+© 2026 MovieMark Platform
+
+</div>
+
+</footer>
+
+<script>
+
+/* simple scroll animation */
+
+const cards = document.querySelectorAll(".card");
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){
+entry.target.style.transform="translateY(0)";
+entry.target.style.opacity=1;
+}
+});
+});
+
+cards.forEach(card=>{
+card.style.transform="translateY(30px)";
+card.style.opacity=0;
+card.style.transition="0.6s";
+observer.observe(card);
+});
+
+</script>
+
+</body>
+</html>

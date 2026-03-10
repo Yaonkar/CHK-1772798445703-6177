@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieMark | Upload</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">MovieMark</a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      ☰
+    </button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="scripts.html">Scripts</a>
+      <a href="shortfilms.html">Short Films</a>
+      <a href="upload.html" class="active">Upload</a>
+      <a href="profile.html">Profile</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="upload-page">
+    <section class="upload-hero">
+      <div class="hero-badge">Creative Submission Portal</div>
+      <h1>Upload Your Creative Work</h1>
+      <p>
+        Share scripts, short films, pitch decks, posters, and project materials
+        with the MovieMark community in a clean and professional format.
+      </p>
+    </section>
+
+    <section class="upload-layout">
+      <div class="upload-card">
+        <div class="card-header">
+          <h2>Content Submission Form</h2>
+          <p>Complete the details below and upload your file.</p>
+        </div>
+
+        <form id="uploadForm" class="upload-form" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="title">Project Title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter project title"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="category">Content Type</label>
+              <select id="category" name="category" required>
+                <option value="">Select content type</option>
+                <option value="script">Script</option>
+                <option value="shortfilm">Short Film</option>
+                <option value="pitchdeck">Pitch Deck</option>
+                <option value="poster">Poster</option>
+                <option value="trailer">Trailer</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="genre">Genre</label>
+              <input
+                type="text"
+                id="genre"
+                name="genre"
+                placeholder="Drama, Thriller, Comedy..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="language">Language</label>
+              <input
+                type="text"
+                id="language"
+                name="language"
+                placeholder="English, Hindi, Marathi..."
+              />
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="duration">Duration / Pages</label>
+              <input
+                type="text"
+                id="duration"
+                name="duration"
+                placeholder="e.g. 15 min / 90 pages"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="visibility">Visibility</label>
+              <select id="visibility" name="visibility">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+                <option value="collaborators">Collaborators Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Write a short description about your project..."
+              maxlength="300"
+              required
+            ></textarea>
+            <div class="field-footer">
+              <small>Keep it short and clear.</small>
+              <small id="charCount">0 / 300</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tags">Tags / Keywords</label>
+            <input
+              type="text"
+              id="tags"
+              name="tags"
+              placeholder="screenplay, student film, suspense, collaboration"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Upload File</label>
+
+            <div class="file-upload-box" id="dropArea">
+              <div class="upload-icon">⬆</div>
+              <h3>Drag & Drop your file here</h3>
+              <p>or click below to browse from your device</p>
+
+              <input type="file" id="file" name="file" hidden required />
+              <button type="button" class="browse-btn" id="browseBtn">
+                Choose File
+              </button>
+
+              <div class="selected-file" id="selectedFile">
+                No file selected
+              </div>
+
+              <div class="progress-wrapper hidden" id="progressWrapper">
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <small id="progressText">0%</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms" required />
+            <label for="terms">
+              I confirm that this content is original or I have permission to upload it.
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Upload Content</button>
+            <button type="reset" class="secondary-btn" id="resetBtn">Clear Form</button>
+          </div>
+
+          <p id="formMessage" class="form-message"></p>
+        </form>
+      </div>
+
+      <aside class="info-panel">
+        <div class="info-card">
+          <h3>Upload Tips</h3>
+          <ul>
+            <li>Use a meaningful title and genre.</li>
+            <li>Add a short description so collaborators understand your work.</li>
+            <li>Use tags to improve discoverability.</li>
+            <li>Choose the correct content type before upload.</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>Accepted Formats</h3>
+          <div class="format-tags">
+            <span>PDF</span>
+            <span>DOCX</span>
+            <span>MP4</span>
+            <span>JPG</span>
+            <span>PNG</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 MovieMark. All rights reserved.</p>
+  </footer>
+
+  <script src="js/upload.js"></script>
+</body>
+</html>

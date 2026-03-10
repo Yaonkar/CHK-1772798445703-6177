@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MovieMark | Admin Login</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:
+radial-gradient(circle at top,#1e293b 0%,transparent 50%),
+linear-gradient(135deg,#020617,#0f172a,#1e293b);
+
+color:white;
+overflow:hidden;
+
+}
+
+/* animated cinematic background */
+
+body::before{
+
+content:"";
+
+position:absolute;
+width:900px;
+height:900px;
+
+background:radial-gradient(circle,#f59e0b33,transparent 60%);
+
+top:-200px;
+left:-200px;
+
+animation:moveLight 12s infinite linear;
+
+}
+
+body::after{
+
+content:"";
+
+position:absolute;
+width:900px;
+height:900px;
+
+background:radial-gradient(circle,#2563eb33,transparent 60%);
+
+bottom:-250px;
+right:-200px;
+
+animation:moveLight 15s infinite linear reverse;
+
+}
+
+@keyframes moveLight{
+
+0%{transform:translate(0,0);}
+50%{transform:translate(100px,80px);}
+100%{transform:translate(0,0);}
+
+}
+
+/* LOGIN PAGE */
+
+.admin-login-page{
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+/* LOGIN CARD */
+
+.admin-login-card{
+
+position:relative;
+
+width:100%;
+max-width:420px;
+
+padding:40px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.05);
+
+backdrop-filter:blur(14px);
+
+border:1px solid rgba(255,255,255,0.15);
+
+box-shadow:0 25px 60px rgba(0,0,0,0.45);
+
+transition:0.4s;
+
+}
+
+.admin-login-card:hover{
+
+transform:translateY(-6px);
+
+}
+
+/* LOGO */
+
+.logo-box{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+.logo-box h1{
+
+font-size:38px;
+
+background:linear-gradient(90deg,#fbbf24,#f59e0b,#fbbf24);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+letter-spacing:1px;
+
+}
+
+.logo-box p{
+
+color:#cbd5e1;
+font-size:14px;
+
+}
+
+/* FORM */
+
+.admin-login-form h2{
+
+text-align:center;
+margin-bottom:24px;
+font-size:24px;
+
+}
+
+/* INPUT GROUP */
+
+.input-group{
+
+margin-bottom:18px;
+
+}
+
+.input-group label{
+
+display:block;
+margin-bottom:6px;
+font-size:14px;
+font-weight:600;
+color:#e2e8f0;
+
+}
+
+.input-group input{
+
+width:100%;
+padding:12px;
+
+border-radius:10px;
+
+border:1px solid rgba(255,255,255,0.15);
+
+background:rgba(255,255,255,0.08);
+
+color:white;
+
+outline:none;
+
+transition:0.3s;
+
+}
+
+.input-group input::placeholder{
+color:#94a3b8;
+}
+
+.input-group input:focus{
+
+border-color:#fbbf24;
+
+box-shadow:0 0 0 2px rgba(251,191,36,0.3);
+
+}
+
+/* OPTIONS */
+
+.options-row{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:22px;
+font-size:13px;
+
+}
+
+.remember-me{
+
+display:flex;
+align-items:center;
+gap:6px;
+
+}
+
+.forgot-link{
+
+color:#fbbf24;
+text-decoration:none;
+
+}
+
+.forgot-link:hover{
+
+text-decoration:underline;
+
+}
+
+/* LOGIN BUTTON */
+
+.login-btn{
+
+width:100%;
+
+padding:14px;
+
+border-radius:10px;
+
+background:linear-gradient(135deg,#f59e0b,#fbbf24);
+
+border:none;
+
+color:#020617;
+
+font-weight:700;
+
+letter-spacing:0.5px;
+
+font-size:15px;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+.login-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 12px 30px rgba(251,191,36,0.4);
+
+}
+
+/* MESSAGE */
+
+.login-message{
+
+text-align:center;
+
+margin-top:12px;
+
+font-size:14px;
+
+min-height:20px;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:500px){
+
+.admin-login-card{
+padding:28px;
+}
+
+.logo-box h1{
+font-size:30px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="admin-login-page">
+
+<div class="admin-login-card">
+
+<div class="logo-box">
+<h1>MovieMark</h1>
+<p>Admin Panel Access</p>
+</div>
+
+<form class="admin-login-form" id="adminLoginForm">
+
+<h2>Admin Login</h2>
+
+<div class="input-group">
+<label for="adminEmail">Email</label>
+<input type="email" id="adminEmail" placeholder="Enter admin email" required>
+</div>
+
+<div class="input-group">
+<label for="adminPassword">Password</label>
+<input type="password" id="adminPassword" placeholder="Enter password" required>
+</div>
+
+<div class="options-row">
+
+<label class="remember-me">
+<input type="checkbox" id="rememberMe">
+<span>Remember me</span>
+</label>
+
+<a href="#" class="forgot-link">Forgot Password?</a>
+
+</div>
+
+<button type="submit" class="login-btn">Login</button>
+
+<p class="login-message" id="loginMessage"></p>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="js/adminAuth.js"></script>
+
+</body>
+</html>
