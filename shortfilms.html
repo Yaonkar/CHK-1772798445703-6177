@@ -4,200 +4,297 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MovieMark | Short Films</title>
-  <link rel="stylesheet" href="css/style.css" />
+
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      color: #111827;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Segoe UI", Arial, sans-serif;
     }
 
-    .films-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px 60px;
+    :root{
+      --bg-main:#06111f;
+      --bg-soft:#0f172a;
+      --bg-card:rgba(255,255,255,0.06);
+      --border:rgba(255,255,255,0.12);
+      --text:#ffffff;
+      --text-soft:#cbd5e1;
+      --text-muted:#94a3b8;
+      --gold:#fbbf24;
+      --blue:#60a5fa;
+      --blue-dark:#2563eb;
+      --purple:#7c3aed;
+      --green:#22c55e;
+      --shadow:0 18px 40px rgba(0,0,0,0.35);
+      --transition:0.3s ease;
     }
 
-    .films-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
+    body{
+      min-height:100vh;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(251,191,36,0.10), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(37,99,235,0.16), transparent 28%),
+        linear-gradient(135deg, #020617, #0f172a, #172554);
+      overflow-x:hidden;
+      padding:40px 20px 60px;
     }
 
-    .films-title h1 {
-      margin: 0 0 8px;
-      font-size: 34px;
-      color: #111827;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size:34px 34px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
     }
 
-    .films-title p {
-      margin: 0;
-      color: #6b7280;
-      font-size: 15px;
+    .films-page{
+      max-width:1200px;
+      margin:0 auto;
+      position:relative;
+      z-index:1;
     }
 
-    .films-search input {
-      width: 280px;
-      max-width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      outline: none;
-      font-size: 14px;
-      background: #ffffff;
+    .films-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:34px;
     }
 
-    .films-search input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    .films-title h1{
+      margin:0 0 8px;
+      font-size:38px;
+      font-weight:800;
+      letter-spacing:-0.5px;
+      background:linear-gradient(90deg, var(--gold), var(--blue));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    .films-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+    .films-title p{
+      margin:0;
+      color:var(--text-soft);
+      font-size:15px;
+      max-width:560px;
     }
 
-    .film-card {
-      background: #ffffff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    .films-search input{
+      width:300px;
+      max-width:100%;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:12px;
+      outline:none;
+      font-size:14px;
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      transition:var(--transition);
     }
 
-    .film-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    .films-search input::placeholder{
+      color:var(--text-muted);
     }
 
-    .film-thumbnail {
-      position: relative;
-      height: 190px;
-      background: linear-gradient(135deg, #1d4ed8, #0f172a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-      text-align: center;
-      padding: 20px;
+    .films-search input:focus{
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(251,191,36,0.16);
+      background:rgba(255,255,255,0.10);
     }
 
-    .play-badge {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      background: rgba(255, 255, 255, 0.92);
-      color: #111827;
-      padding: 8px 12px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: bold;
+    .status-box{
+      display:none;
+      margin-bottom:20px;
+      padding:12px 14px;
+      border-radius:10px;
+      font-size:14px;
+      font-weight:600;
     }
 
-    .film-content {
-      padding: 20px;
+    .status-box.success{
+      display:block;
+      background:rgba(34,197,94,0.15);
+      color:#86efac;
+      border:1px solid rgba(34,197,94,0.25);
     }
 
-    .film-content h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
-      color: #111827;
+    .status-box.error{
+      display:block;
+      background:rgba(239,68,68,0.15);
+      color:#fca5a5;
+      border:1px solid rgba(239,68,68,0.25);
     }
 
-    .film-meta {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 12px;
+    .films-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:24px;
     }
 
-    .film-description {
-      font-size: 14px;
-      color: #374151;
-      line-height: 1.6;
-      margin-bottom: 18px;
+    .film-card{
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      overflow:hidden;
+      backdrop-filter:blur(12px);
+      box-shadow:var(--shadow);
+      transition:transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
     }
 
-    .film-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
+    .film-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 22px 40px rgba(0,0,0,0.4);
+      border-color:rgba(251,191,36,0.22);
     }
 
-    .film-tags span {
-      background: #dbeafe;
-      color: #1d4ed8;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
+    .film-thumbnail{
+      position:relative;
+      height:190px;
+      background:
+        radial-gradient(circle at top left, rgba(251,191,36,0.12), transparent 25%),
+        linear-gradient(135deg, #1d4ed8, #0f172a);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:24px;
+      font-weight:800;
+      text-align:center;
+      padding:20px;
+      letter-spacing:0.3px;
+      overflow:hidden;
     }
 
-    .film-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    .fallback-title{
+      padding:0 10px;
+    }
+
+    .play-badge{
+      position:absolute;
+      bottom:14px;
+      right:14px;
+      background:rgba(255,255,255,0.92);
+      color:#111827;
+      padding:8px 12px;
+      border-radius:30px;
+      font-size:12px;
+      font-weight:800;
+      box-shadow:0 8px 18px rgba(0,0,0,0.18);
+    }
+
+    .film-content{
+      padding:20px;
+    }
+
+    .film-content h3{
+      margin:0 0 10px;
+      font-size:22px;
+      color:var(--gold);
+    }
+
+    .film-meta{
+      font-size:14px;
+      color:var(--text-soft);
+      margin-bottom:12px;
+    }
+
+    .film-description{
+      font-size:14px;
+      color:#e2e8f0;
+      line-height:1.6;
+      margin-bottom:18px;
+      min-height:68px;
+    }
+
+    .film-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:18px;
+    }
+
+    .film-tags span{
+      background:rgba(96,165,250,0.12);
+      color:var(--blue);
+      padding:6px 10px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:700;
+      border:1px solid rgba(96,165,250,0.15);
+    }
+
+    .film-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
     .film-actions a,
-    .film-actions button {
-      flex: 1;
-      min-width: 120px;
-      padding: 11px 14px;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: center;
-      transition: 0.25s ease;
+    .film-actions button{
+      flex:1;
+      min-width:120px;
+      padding:11px 14px;
+      border:none;
+      border-radius:12px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      text-decoration:none;
+      text-align:center;
+      transition:var(--transition);
     }
 
-    .watch-btn {
-      background: #2563eb;
-      color: white;
+    .watch-btn{
+      background:linear-gradient(135deg, var(--blue-dark), var(--purple));
+      color:white;
+      box-shadow:0 10px 20px rgba(37,99,235,0.2);
     }
 
-    .watch-btn:hover {
-      background: #1d4ed8;
+    .connect-btn{
+      background:linear-gradient(135deg, #22c55e, #15803d);
+      color:white;
+      box-shadow:0 10px 20px rgba(34,197,94,0.2);
     }
 
-    .connect-btn {
-      background: #16a34a;
-      color: white;
-    }
-
-    .connect-btn:hover {
-      background: #15803d;
-    }
-
-    .no-result {
-      display: none;
-      text-align: center;
-      margin-top: 30px;
-      font-size: 16px;
-      color: #6b7280;
+    .no-result{
+      display:none;
+      text-align:center;
+      margin-top:30px;
+      font-size:16px;
+      color:var(--text-soft);
+      background:rgba(255,255,255,0.04);
+      border:1px dashed rgba(255,255,255,0.12);
+      padding:16px;
+      border-radius:14px;
     }
 
     @media (max-width: 768px) {
-      .films-title h1 {
-        font-size: 28px;
+      body{
+        padding:24px 16px 40px;
       }
 
-      .films-search input {
-        width: 100%;
+      .films-title h1{
+        font-size:30px;
       }
 
-      .film-thumbnail {
-        height: 170px;
+      .films-search input{
+        width:100%;
+      }
+
+      .film-thumbnail{
+        height:170px;
+        font-size:20px;
+      }
+
+      .film-actions{
+        flex-direction:column;
       }
     }
   </style>
@@ -216,173 +313,166 @@
       </div>
     </div>
 
-    <div class="films-grid" id="filmsGrid">
-
-      <div class="film-card">
-        <div class="film-thumbnail">
-          Midnight Frame
-          <div class="play-badge">▶ Watch</div>
-        </div>
-        <div class="film-content">
-          <h3>Midnight Frame</h3>
-          <div class="film-meta">By Aarya Patil • 12 min</div>
-          <p class="film-description">
-            A photographer captures a hidden truth in the city after midnight, changing her life forever.
-          </p>
-          <div class="film-tags">
-            <span>Thriller</span>
-            <span>Drama</span>
-          </div>
-          <div class="film-actions">
-            <a href="watch.html" class="watch-btn">Watch Now</a>
-            <button class="connect-btn">Connect</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="film-card">
-        <div class="film-thumbnail">
-          Last Take
-          <div class="play-badge">▶ Watch</div>
-        </div>
-        <div class="film-content">
-          <h3>Last Take</h3>
-          <div class="film-meta">By Rohan Deshmukh • 18 min</div>
-          <p class="film-description">
-            A young director gets one final chance to prove himself before his dream project is cancelled.
-          </p>
-          <div class="film-tags">
-            <span>Film</span>
-            <span>Motivation</span>
-          </div>
-          <div class="film-actions">
-            <a href="watch.html" class="watch-btn">Watch Now</a>
-            <button class="connect-btn">Connect</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="film-card">
-        <div class="film-thumbnail">
-          Silent Echo
-          <div class="play-badge">▶ Watch</div>
-        </div>
-        <div class="film-content">
-          <h3>Silent Echo</h3>
-          <div class="film-meta">By Neha Kulkarni • 9 min</div>
-          <p class="film-description">
-            A dancer learns to express emotions through movement after losing her voice in an accident.
-          </p>
-          <div class="film-tags">
-            <span>Emotional</span>
-            <span>Art</span>
-          </div>
-          <div class="film-actions">
-            <a href="watch.html" class="watch-btn">Watch Now</a>
-            <button class="connect-btn">Connect</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="film-card">
-        <div class="film-thumbnail">
-          The Station Bench
-          <div class="play-badge">▶ Watch</div>
-        </div>
-        <div class="film-content">
-          <h3>The Station Bench</h3>
-          <div class="film-meta">By Siddharth Mane • 14 min</div>
-          <p class="film-description">
-            Two strangers meet at a railway station and discover a connection from their forgotten past.
-          </p>
-          <div class="film-tags">
-            <span>Romance</span>
-            <span>Drama</span>
-          </div>
-          <div class="film-actions">
-            <a href="watch.html" class="watch-btn">Watch Now</a>
-            <button class="connect-btn">Connect</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="film-card">
-        <div class="film-thumbnail">
-          Dark Rehearsal
-          <div class="play-badge">▶ Watch</div>
-        </div>
-        <div class="film-content">
-          <h3>Dark Rehearsal</h3>
-          <div class="film-meta">By Meera Shah • 11 min</div>
-          <p class="film-description">
-            A theatre group rehearses a play, but one scene starts revealing real secrets of the cast.
-          </p>
-          <div class="film-tags">
-            <span>Mystery</span>
-            <span>Theatre</span>
-          </div>
-          <div class="film-actions">
-            <a href="watch.html" class="watch-btn">Watch Now</a>
-            <button class="connect-btn">Connect</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="film-card">
-        <div class="film-thumbnail">
-          Broken Signal
-          <div class="play-badge">▶ Watch</div>
-        </div>
-        <div class="film-content">
-          <h3>Broken Signal</h3>
-          <div class="film-meta">By Kunal Jadhav • 16 min</div>
-          <p class="film-description">
-            A radio host receives a mysterious late-night call that leads him into a dangerous investigation.
-          </p>
-          <div class="film-tags">
-            <span>Suspense</span>
-            <span>Crime</span>
-          </div>
-          <div class="film-actions">
-            <a href="watch.html" class="watch-btn">Watch Now</a>
-            <button class="connect-btn">Connect</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+    <div id="statusBox" class="status-box"></div>
+    <div class="films-grid" id="filmsGrid"></div>
     <p class="no-result" id="noResultMessage">No short films found.</p>
   </div>
 
   <script>
+    const API_BASE = "http://localhost:5000/api/films/explore";
+    const REQUEST_BASE = "http://localhost:5000/api/films/request";
+
     const filmSearch = document.getElementById("filmSearch");
-    const filmCards = document.querySelectorAll(".film-card");
+    const filmsGrid = document.getElementById("filmsGrid");
     const noResultMessage = document.getElementById("noResultMessage");
+    const statusBox = document.getElementById("statusBox");
+
+    let allFilms = [];
+
+    const fallbackFilms = [
+      {
+        _id: "1",
+        title: "Midnight Frame",
+        creator: { name: "Aarya Patil" },
+        description: "A photographer captures a hidden truth in the city after midnight, changing her life forever.",
+        video: "watch.html"
+      },
+      {
+        _id: "2",
+        title: "Last Take",
+        creator: { name: "Rohan Deshmukh" },
+        description: "A young director gets one final chance to prove himself before his dream project is cancelled.",
+        video: "watch.html"
+      },
+      {
+        _id: "3",
+        title: "Silent Echo",
+        creator: { name: "Neha Kulkarni" },
+        description: "A dancer learns to express emotions through movement after losing her voice in an accident.",
+        video: "watch.html"
+      }
+    ];
+
+    function showStatus(type, message) {
+      statusBox.className = `status-box ${type}`;
+      statusBox.textContent = message;
+    }
+
+    function createTagsFromDescription(description) {
+      const text = (description || "").toLowerCase();
+      const tags = [];
+
+      if (text.includes("thriller")) tags.push("Thriller");
+      if (text.includes("drama")) tags.push("Drama");
+      if (text.includes("romance")) tags.push("Romance");
+      if (text.includes("crime")) tags.push("Crime");
+      if (text.includes("mystery")) tags.push("Mystery");
+      if (text.includes("theatre")) tags.push("Theatre");
+      if (text.includes("art")) tags.push("Art");
+      if (text.includes("film")) tags.push("Film");
+
+      if (tags.length === 0) tags.push("Short Film");
+
+      return tags;
+    }
+
+    function createFilmCard(film) {
+      const tags = createTagsFromDescription(film.description);
+      const tagHTML = tags.map(tag => `<span>${tag}</span>`).join("");
+
+      return `
+        <div class="film-card">
+          <div class="film-thumbnail">
+            <div class="fallback-title">${film.title}</div>
+            <div class="play-badge">▶ Watch</div>
+          </div>
+          <div class="film-content">
+            <h3>${film.title}</h3>
+            <div class="film-meta">By ${film.creator?.name || "Unknown Creator"}</div>
+            <p class="film-description">${film.description || "No description available."}</p>
+            <div class="film-tags">${tagHTML}</div>
+            <div class="film-actions">
+              <a href="watch.html?id=${film._id}" class="watch-btn">Watch Now</a>
+              <button class="connect-btn" onclick="requestFilm('${film._id}')">Connect</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFilms(films) {
+      if (!films.length) {
+        filmsGrid.innerHTML = "";
+        noResultMessage.style.display = "block";
+        return;
+      }
+
+      filmsGrid.innerHTML = films.map(createFilmCard).join("");
+      noResultMessage.style.display = "none";
+    }
+
+    async function loadFilms() {
+      try {
+        const response = await fetch(API_BASE);
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error("Failed to load films");
+        }
+
+        allFilms = data.films;
+        renderFilms(allFilms);
+        showStatus("success", "Films loaded successfully.");
+      } catch (error) {
+        allFilms = fallbackFilms;
+        renderFilms(allFilms);
+        showStatus("error", "Backend not connected. Showing demo films.");
+      }
+    }
+
+    async function requestFilm(id) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login first.");
+        return;
+      }
+
+      try {
+        const response = await fetch(`${REQUEST_BASE}/${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        const data = await response.json();
+        alert(data.message || "Request sent successfully.");
+      } catch (error) {
+        alert("Cannot connect to backend.");
+      }
+    }
 
     filmSearch.addEventListener("keyup", function () {
       const searchValue = filmSearch.value.toLowerCase();
-      let visibleCount = 0;
 
-      filmCards.forEach(function (card) {
-        const title = card.querySelector("h3").textContent.toLowerCase();
-        const meta = card.querySelector(".film-meta").textContent.toLowerCase();
-        const description = card.querySelector(".film-description").textContent.toLowerCase();
+      const filteredFilms = allFilms.filter(film => {
+        const title = (film.title || "").toLowerCase();
+        const creator = (film.creator?.name || "").toLowerCase();
+        const description = (film.description || "").toLowerCase();
 
-        if (
+        return (
           title.includes(searchValue) ||
-          meta.includes(searchValue) ||
+          creator.includes(searchValue) ||
           description.includes(searchValue)
-        ) {
-          card.style.display = "block";
-          visibleCount++;
-        } else {
-          card.style.display = "none";
-        }
+        );
       });
 
-      noResultMessage.style.display = visibleCount === 0 ? "block" : "none";
+      renderFilms(filteredFilms);
     });
+
+    loadFilms();
   </script>
 
 </body>

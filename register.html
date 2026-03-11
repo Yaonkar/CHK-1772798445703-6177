@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -8,7 +7,202 @@
 
 <title>MovieMark | Register</title>
 
-<link rel="stylesheet" href="css/style.css">
+<style>
+
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:
+radial-gradient(circle at top left,#1e3a8a,#020617 70%);
+color:white;
+padding:30px;
+}
+
+/* PAGE */
+
+.register-page{
+width:100%;
+display:flex;
+justify-content:center;
+}
+
+/* CARD */
+
+.register-card{
+
+width:100%;
+max-width:500px;
+
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+
+border-radius:20px;
+padding:35px;
+
+backdrop-filter:blur(10px);
+
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* HEADER */
+
+.register-header{
+text-align:center;
+margin-bottom:25px;
+}
+
+.register-header h1{
+font-size:30px;
+margin-bottom:5px;
+
+background:linear-gradient(90deg,#fbbf24,#60a5fa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.register-header p{
+font-size:14px;
+color:#cbd5e1;
+}
+
+/* FORM */
+
+.register-form h2{
+text-align:center;
+margin-bottom:18px;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:5px;
+font-size:14px;
+color:#cbd5e1;
+}
+
+.form-group input,
+.form-group textarea{
+
+width:100%;
+padding:10px;
+
+border-radius:8px;
+border:none;
+
+background:rgba(255,255,255,0.08);
+color:white;
+
+outline:none;
+}
+
+textarea{
+resize:none;
+height:80px;
+}
+
+input::placeholder,
+textarea::placeholder{
+color:#94a3b8;
+}
+
+/* ROLES */
+
+.roles-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+margin-top:5px;
+}
+
+.role-chip{
+display:flex;
+align-items:center;
+gap:6px;
+
+background:rgba(255,255,255,0.05);
+padding:6px 10px;
+
+border-radius:20px;
+font-size:13px;
+
+cursor:pointer;
+}
+
+/* BUTTON */
+
+.register-btn{
+
+width:100%;
+padding:12px;
+
+border:none;
+border-radius:8px;
+
+background:linear-gradient(135deg,#fbbf24,#f59e0b);
+color:#020617;
+
+font-weight:bold;
+font-size:15px;
+
+cursor:pointer;
+
+margin-top:10px;
+
+transition:.3s;
+
+}
+
+.register-btn:hover{
+transform:translateY(-2px);
+}
+
+/* MESSAGE */
+
+.register-message{
+margin-top:10px;
+text-align:center;
+font-size:14px;
+}
+
+/* LOGIN LINK */
+
+.login-link{
+margin-top:15px;
+text-align:center;
+font-size:14px;
+}
+
+.login-link a{
+color:#60a5fa;
+text-decoration:none;
+font-weight:600;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:500px){
+
+.roles-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
 
 </head>
 
@@ -50,18 +244,18 @@
 
 <div class="roles-grid">
 
-<label class="role-chip"><input type="checkbox" value="Writer"> ✍ Writer</label>
-<label class="role-chip"><input type="checkbox" value="Director"> 🎬 Director</label>
-<label class="role-chip"><input type="checkbox" value="Actor"> 🎭 Actor</label>
-<label class="role-chip"><input type="checkbox" value="Editor"> ✂ Editor</label>
-<label class="role-chip"><input type="checkbox" value="Producer"> 💼 Producer</label>
-<label class="role-chip"><input type="checkbox" value="Cinematographer"> 📷 Cinematographer</label>
-<label class="role-chip"><input type="checkbox" value="Sound Designer"> 🔊 Sound Designer</label>
-<label class="role-chip"><input type="checkbox" value="Music Composer"> 🎼 Music Composer</label>
-<label class="role-chip"><input type="checkbox" value="VFX Artist"> 🖥 VFX Artist</label>
-<label class="role-chip"><input type="checkbox" value="Colorist"> 🎨 Colorist</label>
-<label class="role-chip"><input type="checkbox" value="Production Designer"> 🏗 Production Designer</label>
-<label class="role-chip"><input type="checkbox" value="Assistant Director"> 📋 Assistant Director</label>
+<label class="role-chip"><input type="checkbox" value="writer"> ✍ Writer</label>
+<label class="role-chip"><input type="checkbox" value="director"> 🎬 Director</label>
+<label class="role-chip"><input type="checkbox" value="actor"> 🎭 Actor</label>
+<label class="role-chip"><input type="checkbox" value="editor"> ✂ Editor</label>
+<label class="role-chip"><input type="checkbox" value="producer"> 💼 Producer</label>
+<label class="role-chip"><input type="checkbox" value="cinematographer"> 📷 Cinematographer</label>
+<label class="role-chip"><input type="checkbox" value="sound"> 🔊 Sound Designer</label>
+<label class="role-chip"><input type="checkbox" value="music"> 🎼 Music Composer</label>
+<label class="role-chip"><input type="checkbox" value="vfx"> 🖥 VFX Artist</label>
+<label class="role-chip"><input type="checkbox" value="colorist"> 🎨 Colorist</label>
+<label class="role-chip"><input type="checkbox" value="production"> 🏗 Production Designer</label>
+<label class="role-chip"><input type="checkbox" value="assistant"> 📋 Assistant Director</label>
 
 </div>
 
@@ -72,7 +266,9 @@
 <textarea id="bio" placeholder="Tell us about your filmmaking journey"></textarea>
 </div>
 
-<button type="submit" class="register-btn">Create Account</button>
+<button type="submit" class="register-btn">
+Create Account
+</button>
 
 <p id="registerMessage" class="register-message"></p>
 
@@ -87,7 +283,74 @@ Already have an account?
 
 </div>
 
-<script src="js/auth.js"></script>
+<script>
+
+/* REGISTER FUNCTION */
+
+const form = document.getElementById("registerForm");
+const message = document.getElementById("registerMessage");
+
+form.addEventListener("submit", async (e)=>{
+
+e.preventDefault();
+
+const name=document.getElementById("name").value;
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+const bio=document.getElementById("bio").value;
+
+/* GET ROLES */
+
+const roles=[...document.querySelectorAll(".roles-grid input:checked")]
+.map(r=>r.value);
+
+try{
+
+const response=await fetch("http://localhost:5000/api/auth/register",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+name,
+email,
+password,
+bio,
+roles
+})
+
+});
+
+const data=await response.json();
+
+if(!response.ok){
+
+message.style.color="red";
+message.textContent=data.message || "Registration failed";
+return;
+
+}
+
+message.style.color="lightgreen";
+message.textContent="Account created successfully";
+
+setTimeout(()=>{
+window.location.href="login.html";
+},1200);
+
+}catch(error){
+
+message.style.color="red";
+message.textContent="Server error";
+
+}
+
+});
+
+</script>
 
 </body>
 </html>

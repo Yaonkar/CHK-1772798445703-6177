@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MovieMark | Scripts</title>
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:,">
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+:root{
+--gold:#fbbf24;
+--gold-dark:#f59e0b;
+--blue:#2563eb;
+--green:#22c55e;
+--purple:#7c3aed;
+--soft:#cbd5e1;
+--muted:#94a3b8;
+--card:rgba(255,255,255,0.06);
+--border:rgba(255,255,255,0.10);
+--shadow:0 18px 40px rgba(0,0,0,0.35);
+}
 
 body{
-font-family:Arial, sans-serif;
-background:#f5f5f5;
-margin:0;
+background:
+radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 20%),
+radial-gradient(circle at bottom right, rgba(251,191,36,0.10), transparent 20%),
+linear-gradient(135deg,#020617,#0f172a,#172554);
+color:white;
+min-height:100vh;
+padding:40px 20px;
 }
 
 .scripts-container{
-max-width:1200px;
-margin:60px auto;
-padding:20px;
+max-width:1320px;
+margin:auto;
 }
 
 .scripts-header{
@@ -28,191 +47,623 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:30px;
+flex-wrap:wrap;
+gap:18px;
 }
 
 .scripts-header h1{
-margin:0;
+font-size:38px;
+background:linear-gradient(90deg,#fbbf24,#60a5fa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.search-box input{
-padding:10px;
-width:250px;
-border:1px solid #ccc;
-border-radius:5px;
+.scripts-subtitle{
+color:var(--soft);
+font-size:15px;
+max-width:700px;
+line-height:1.6;
+}
+
+.quick-stats{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.quick-stat{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+padding:16px 18px;
+min-width:140px;
+box-shadow:var(--shadow);
+backdrop-filter:blur(10px);
+}
+
+.quick-stat h3{
+font-size:23px;
+color:var(--gold);
+margin-bottom:4px;
+}
+
+.quick-stat p{
+font-size:13px;
+color:var(--soft);
+}
+
+.top-ranked-box{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:22px;
+padding:22px;
+backdrop-filter:blur(10px);
+box-shadow:var(--shadow);
+margin-bottom:30px;
+}
+
+.top-ranked-box h2{
+margin-bottom:15px;
+color:var(--gold);
+font-size:25px;
+}
+
+.top-ranked-list{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.rank-card{
+background:rgba(255,255,255,0.05);
+border-radius:16px;
+padding:16px;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.rank-card h3{
+font-size:18px;
+margin-bottom:8px;
+color:#93c5fd;
+}
+
+.rank-card p{
+font-size:13px;
+color:var(--soft);
+margin-bottom:5px;
+}
+
+.control-bar{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:15px;
+margin-bottom:25px;
+}
+
+.search-box input,
+.filter-box select,
+.sort-box select{
+width:100%;
+padding:13px 14px;
+border:none;
+border-radius:12px;
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+}
+
+.search-box input::placeholder{
+color:var(--muted);
 }
 
 .scripts-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:24px;
 }
 
 .script-card{
-background:white;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:20px;
 padding:20px;
-border-radius:8px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+backdrop-filter:blur(10px);
+box-shadow:var(--shadow);
+transition:0.3s;
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.script-card:hover{
+transform:translateY(-6px);
+}
+
+.script-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:12px;
 }
 
 .script-card h3{
-margin-top:0;
+color:var(--gold);
+font-size:24px;
+line-height:1.2;
 }
 
-.script-writer{
-color:#666;
+.status-badge{
+padding:6px 10px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+white-space:nowrap;
+}
+
+.status-open{
+background:rgba(34,197,94,0.15);
+color:#86efac;
+}
+
+.status-progress{
+background:rgba(124,58,237,0.15);
+color:#c4b5fd;
+}
+
+.status-closed{
+background:rgba(239,68,68,0.15);
+color:#fca5a5;
+}
+
+.script-meta{
+color:var(--soft);
 font-size:14px;
-margin-bottom:10px;
+line-height:1.7;
 }
 
 .script-desc{
 font-size:14px;
-color:#444;
-margin-bottom:15px;
+color:#e2e8f0;
+line-height:1.6;
+min-height:88px;
 }
 
-.script-buttons{
+.script-tags{
 display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:4px;
+}
+
+.script-tags span{
+font-size:12px;
+background:rgba(255,255,255,0.08);
+padding:6px 10px;
+border-radius:20px;
+color:#cbd5e1;
+}
+
+.script-mini-stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
 gap:10px;
 }
 
+.mini-stat{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:12px;
+padding:12px;
+text-align:center;
+}
+
+.mini-stat h4{
+font-size:18px;
+color:#93c5fd;
+margin-bottom:4px;
+}
+
+.mini-stat p{
+font-size:12px;
+color:var(--soft);
+}
+
+.script-buttons{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-top:auto;
+}
+
+.script-buttons a,
 .script-buttons button{
-flex:1;
-padding:8px;
+padding:11px;
 border:none;
-border-radius:5px;
+border-radius:12px;
 cursor:pointer;
 font-size:13px;
+font-weight:700;
+text-align:center;
+text-decoration:none;
+color:white;
+transition:.25s;
+}
+
+.script-buttons a:hover,
+.script-buttons button:hover{
+transform:translateY(-2px);
 }
 
 .read-btn{
-background:#2563eb;
-color:white;
+background:linear-gradient(135deg,#2563eb,#1e40af);
 }
 
 .request-btn{
-background:#16a34a;
-color:white;
+background:linear-gradient(135deg,#22c55e,#15803d);
 }
 
-.read-btn:hover{
-background:#1e40af;
+.like-btn{
+background:linear-gradient(135deg,#7c3aed,#5b21b6);
 }
 
-.request-btn:hover{
-background:#15803d;
+.message-box{
+margin-bottom:20px;
+font-size:15px;
+color:#cbd5e1;
+min-height:20px;
 }
 
+.empty-box{
+padding:30px;
+text-align:center;
+background:rgba(255,255,255,0.05);
+border-radius:16px;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.loader{
+display:inline-block;
+width:18px;
+height:18px;
+border:2px solid rgba(255,255,255,0.2);
+border-top-color:white;
+border-radius:50%;
+animation:spin .8s linear infinite;
+vertical-align:middle;
+margin-right:8px;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg);}
+}
+
+@media(max-width:1000px){
+.control-bar{
+grid-template-columns:1fr 1fr;
+}
+}
+
+@media(max-width:700px){
+.scripts-header{
+flex-direction:column;
+align-items:flex-start;
+}
+.control-bar{
+grid-template-columns:1fr;
+}
+.script-buttons{
+grid-template-columns:1fr;
+}
+.script-mini-stats{
+grid-template-columns:1fr 1fr;
+}
+}
 </style>
-
 </head>
-
-
 <body>
 
 <div class="scripts-container">
 
 <div class="scripts-header">
+  <div>
+    <h1>Explore Scripts</h1>
+    <p class="scripts-subtitle">
+      Discover powerful stories, explore top-ranked screenplays, and collaborate with creative writers on MovieMark.
+    </p>
+  </div>
 
-<h1>Explore Scripts</h1>
-
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="Search scripts...">
+  <div class="quick-stats">
+    <div class="quick-stat">
+      <h3 id="totalScriptsCount">0</h3>
+      <p>Total Scripts</p>
+    </div>
+    <div class="quick-stat">
+      <h3 id="totalLikesCount">0</h3>
+      <p>Total Likes</p>
+    </div>
+    <div class="quick-stat">
+      <h3 id="topGenreText">-</h3>
+      <p>Top Genre</p>
+    </div>
+  </div>
 </div>
 
+<div class="top-ranked-box">
+  <h2>Top Ranked Scripts</h2>
+  <div class="top-ranked-list" id="topRankedList">
+    <p><span class="loader"></span>Loading rankings...</p>
+  </div>
 </div>
 
+<div class="control-bar">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search scripts, writers, descriptions, tags...">
+  </div>
 
+  <div class="filter-box">
+    <select id="genreFilter">
+      <option value="All">All Genres</option>
+      <option value="Drama">Drama</option>
+      <option value="Thriller">Thriller</option>
+      <option value="Action">Action</option>
+      <option value="Romance">Romance</option>
+      <option value="Comedy">Comedy</option>
+      <option value="Mythology">Mythology</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Sci-Fi">Sci-Fi</option>
+      <option value="Horror">Horror</option>
+    </select>
+  </div>
 
-<div class="scripts-grid" id="scriptsGrid">
+  <div class="filter-box">
+    <select id="statusFilter">
+      <option value="All">All Status</option>
+      <option value="open">Open</option>
+      <option value="in progress">In Progress</option>
+      <option value="closed">Closed</option>
+      <option value="selected">Selected</option>
+      <option value="preproduction">Pre-Production</option>
+    </select>
+  </div>
 
-
-<div class="script-card">
-
-<h3>Chakravyuh</h3>
-<p class="script-writer">Writer: Arjun Verma</p>
-
-<p class="script-desc">
-A young warrior must enter a deadly battlefield strategy he only partially understands.
-</p>
-
-<div class="script-buttons">
-<button class="read-btn">Read Script</button>
-<button class="request-btn">Request</button>
+  <div class="sort-box">
+    <select id="sortSelect">
+      <option value="latest">Latest</option>
+      <option value="ranking">Top Ranked</option>
+      <option value="likes">Most Liked</option>
+      <option value="views">Most Viewed</option>
+      <option value="title">Title A-Z</option>
+    </select>
+  </div>
 </div>
 
-</div>
-
-
-
-<div class="script-card">
-
-<h3>City Shadows</h3>
-<p class="script-writer">Writer: Neha Kapoor</p>
-
-<p class="script-desc">
-A detective uncovers a dark conspiracy hidden within the city's elite.
-</p>
-
-<div class="script-buttons">
-<button class="read-btn">Read Script</button>
-<button class="request-btn">Request</button>
-</div>
+<div class="message-box" id="messageBox"><span class="loader"></span>Loading scripts...</div>
+<div class="scripts-grid" id="scriptsGrid"></div>
 
 </div>
-
-
-
-<div class="script-card">
-
-<h3>The Last Scene</h3>
-<p class="script-writer">Writer: Rohan Desai</p>
-
-<p class="script-desc">
-A struggling filmmaker gets one final chance to make the movie of his dreams.
-</p>
-
-<div class="script-buttons">
-<button class="read-btn">Read Script</button>
-<button class="request-btn">Request</button>
-</div>
-
-</div>
-
-
-
-</div>
-
-</div>
-
-
 
 <script>
-
+const scriptsGrid = document.getElementById("scriptsGrid");
+const topRankedList = document.getElementById("topRankedList");
 const searchInput = document.getElementById("searchInput");
+const genreFilter = document.getElementById("genreFilter");
+const statusFilter = document.getElementById("statusFilter");
+const sortSelect = document.getElementById("sortSelect");
+const messageBox = document.getElementById("messageBox");
 
-searchInput.addEventListener("keyup",function(){
+const totalScriptsCount = document.getElementById("totalScriptsCount");
+const totalLikesCount = document.getElementById("totalLikesCount");
+const topGenreText = document.getElementById("topGenreText");
 
-let filter = searchInput.value.toLowerCase();
+let debounceTimer = null;
 
-let cards = document.querySelectorAll(".script-card");
-
-cards.forEach(card => {
-
-let title = card.querySelector("h3").innerText.toLowerCase();
-
-if(title.includes(filter)){
-card.style.display="block";
+function getStatusClass(status) {
+  if (status === "closed") return "status-closed";
+  if (status === "in progress" || status === "selected" || status === "preproduction") return "status-progress";
+  return "status-open";
 }
-else{
-card.style.display="none";
+
+function updateHeaderStats(scripts) {
+  totalScriptsCount.textContent = scripts.length;
+
+  const totalLikes = scripts.reduce((sum, script) => sum + (script.likes || 0), 0);
+  totalLikesCount.textContent = totalLikes;
+
+  const genreMap = {};
+  scripts.forEach(script => {
+    const genre = script.genre || "Unknown";
+    genreMap[genre] = (genreMap[genre] || 0) + 1;
+  });
+
+  let topGenre = "-";
+  let maxCount = 0;
+
+  for (const genre in genreMap) {
+    if (genreMap[genre] > maxCount) {
+      maxCount = genreMap[genre];
+      topGenre = genre;
+    }
+  }
+
+  topGenreText.textContent = topGenre;
 }
 
-});
+async function loadScripts() {
+  try {
+    messageBox.innerHTML = `<span class="loader"></span>Loading scripts...`;
 
-});
+    const search = searchInput.value.trim();
+    const genre = genreFilter.value;
+    const status = statusFilter.value;
+    const sort = sortSelect.value;
 
+    const response = await fetch(
+      `http://localhost:5000/api/scripts?search=${encodeURIComponent(search)}&genre=${encodeURIComponent(genre)}&status=${encodeURIComponent(status)}&sort=${encodeURIComponent(sort)}`
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to load scripts");
+    }
+
+    const scripts = data.scripts || [];
+    renderScripts(scripts);
+    updateHeaderStats(scripts);
+
+    if (!scripts.length) {
+      messageBox.textContent = "No scripts found.";
+    } else {
+      messageBox.textContent = `${scripts.length} script(s) loaded successfully.`;
+    }
+  } catch (error) {
+    console.error("Load scripts error:", error);
+    messageBox.textContent = "Could not load scripts from backend.";
+    scriptsGrid.innerHTML = `<div class="empty-box">Backend connection failed.</div>`;
+  }
+}
+
+function renderScripts(scripts) {
+  if (!scripts.length) {
+    scriptsGrid.innerHTML = `<div class="empty-box">No scripts available for the selected filters.</div>`;
+    return;
+  }
+
+  scriptsGrid.innerHTML = scripts.map(script => `
+    <div class="script-card">
+      <div class="script-top">
+        <h3>${script.title}</h3>
+        <span class="status-badge ${getStatusClass(script.status)}">${script.status || "open"}</span>
+      </div>
+
+      <div class="script-meta">
+        <strong>Writer:</strong> ${script.writer || "Unknown"}<br>
+        <strong>Genre:</strong> ${script.genre || "Not specified"}<br>
+        <strong>Created:</strong> ${script.createdAt ? new Date(script.createdAt).toLocaleDateString() : "-"}
+      </div>
+
+      <div class="script-desc">${script.description || "No description available."}</div>
+
+      <div class="script-tags">
+        ${(script.tags && script.tags.length ? script.tags : ["story", "creative"]).map(tag => `<span>${tag}</span>`).join("")}
+      </div>
+
+      <div class="script-mini-stats">
+        <div class="mini-stat">
+          <h4>${script.averageRating || 0}</h4>
+          <p>Rating / 10</p>
+        </div>
+        <div class="mini-stat">
+          <h4>${script.rankingScore || 0}</h4>
+          <p>Rank Score</p>
+        </div>
+        <div class="mini-stat">
+          <h4>${script.likes || 0}</h4>
+          <p>Likes</p>
+        </div>
+        <div class="mini-stat">
+          <h4>${script.views || 0}</h4>
+          <p>Views</p>
+        </div>
+      </div>
+
+      <div class="script-buttons">
+        ${
+          script.scriptUrl
+            ? `<a class="read-btn" href="http://localhost:5000/api/scripts/${script._id}/read" target="_blank">Read Script</a>`
+            : `<button class="read-btn" onclick="alert('No script file uploaded yet')">Read Script</button>`
+        }
+        <a class="request-btn" href="request.html?scriptId=${script._id}">Request</a>
+        <button class="like-btn" onclick="openRatingPrompt('${script._id}')">Rate / Rank</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function openRatingPrompt(scriptId) {
+  const score = prompt("Give rating from 1 to 10");
+
+  if (!score) return;
+
+  const numericScore = Number(score);
+
+  if (Number.isNaN(numericScore) || numericScore < 1 || numericScore > 10) {
+    alert("Please enter a number between 1 and 10");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/scripts/${scriptId}/rate`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ score: numericScore })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to rate script");
+    }
+
+    await loadScripts();
+    await loadTopRankedScripts();
+    alert("Script rated successfully");
+  } catch (error) {
+    console.error("Rate script error:", error);
+    alert(error.message || "Could not rate script");
+  }
+}
+
+async function loadTopRankedScripts() {
+  try {
+    const response = await fetch("http://localhost:5000/api/scripts/top/ranked");
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to load rankings");
+    }
+
+    const scripts = data.scripts || [];
+
+    if (!scripts.length) {
+      topRankedList.innerHTML = "<p>No ranked scripts available.</p>";
+      return;
+    }
+
+    topRankedList.innerHTML = scripts.map((script, index) => `
+      <div class="rank-card">
+        <h3>#${index + 1} ${script.title}</h3>
+        <p>Writer: ${script.writer || "Unknown"}</p>
+        <p>Genre: ${script.genre || "Not specified"}</p>
+        <p>Average Rating: ${script.averageRating || 0} / 10</p>
+        <p>Rank Score: ${script.rankingScore || 0}</p>
+        <p>Likes: ${script.likes || 0}</p>
+        <p>Views: ${script.views || 0}</p>
+      </div>
+    `).join("");
+  } catch (error) {
+    console.error("Top ranked scripts error:", error);
+    topRankedList.innerHTML = "<p>Could not load rankings.</p>";
+  }
+}
+
+function debounceLoad() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    loadScripts();
+  }, 350);
+}
+
+searchInput.addEventListener("input", debounceLoad);
+genreFilter.addEventListener("change", loadScripts);
+statusFilter.addEventListener("change", loadScripts);
+sortSelect.addEventListener("change", loadScripts);
+
+loadScripts();
+loadTopRankedScripts();
 </script>
-
 
 </body>
 </html>

@@ -2,209 +2,348 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MovieMark | Watch Film</title>
 
-<link rel="stylesheet" href="css/style.css">
-
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI", Arial, sans-serif;
+}
+
+:root{
+--gold:#fbbf24;
+--gold-dark:#f59e0b;
+--blue:#2563eb;
+--purple:#7c3aed;
+--green:#16a34a;
+--green-dark:#15803d;
+--text:#ffffff;
+--text-soft:#cbd5e1;
+--text-muted:#94a3b8;
+--card:rgba(255,255,255,0.06);
+--border:rgba(255,255,255,0.12);
+--shadow:0 18px 40px rgba(0,0,0,0.35);
+}
 
 body{
-font-family: Arial, sans-serif;
-margin:0;
-background:#f4f4f4;
+min-height:100vh;
+background:
+radial-gradient(circle at top left, rgba(251,191,36,0.10), transparent 24%),
+radial-gradient(circle at bottom right, rgba(37,99,235,0.16), transparent 28%),
+linear-gradient(135deg,#020617,#0f172a,#172554);
+color:var(--text);
+padding:40px 20px 60px;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background:
+linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+background-size:34px 34px;
+mask-image:linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
 }
 
 .watch-container{
 max-width:1000px;
-margin:60px auto;
-padding:20px;
+margin:0 auto;
+position:relative;
+z-index:1;
 }
 
 .video-section{
-background:white;
-padding:20px;
-border-radius:8px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+background:var(--card);
+padding:24px;
+border-radius:20px;
+border:1px solid var(--border);
+backdrop-filter:blur(12px);
+box-shadow:var(--shadow);
 }
 
 .video-player{
 width:100%;
-border-radius:6px;
+border-radius:14px;
+background:#000;
+outline:none;
+box-shadow:0 12px 26px rgba(0,0,0,0.35);
 }
 
 .video-info{
-margin-top:20px;
+margin-top:24px;
 }
 
 .video-info h2{
 margin:0 0 10px 0;
+font-size:32px;
+font-weight:800;
+background:linear-gradient(90deg,var(--gold),#60a5fa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .creator{
-color:#666;
+color:var(--text-soft);
 font-size:14px;
-margin-bottom:10px;
+margin-bottom:12px;
+font-weight:600;
 }
 
 .description{
-color:#444;
-line-height:1.6;
-margin-bottom:20px;
+color:#e2e8f0;
+line-height:1.7;
+margin-bottom:22px;
+font-size:15px;
 }
 
 .action-buttons{
 display:flex;
-gap:10px;
+gap:12px;
 flex-wrap:wrap;
 }
 
-.action-buttons button{
-padding:10px 16px;
+.action-buttons button,
+.action-buttons a{
+padding:12px 18px;
 border:none;
-border-radius:5px;
+border-radius:12px;
 cursor:pointer;
 font-size:14px;
+font-weight:700;
+transition:0.3s ease;
+text-decoration:none;
+display:inline-block;
 }
 
 .request-btn{
-background:#16a34a;
+background:linear-gradient(135deg,var(--green),var(--green-dark));
 color:white;
+box-shadow:0 10px 20px rgba(22,163,74,0.22);
 }
 
 .profile-btn{
-background:#2563eb;
+background:linear-gradient(135deg,var(--blue),var(--purple));
 color:white;
+box-shadow:0 10px 20px rgba(37,99,235,0.22);
 }
 
-.request-btn:hover{
-background:#15803d;
-}
-
+.request-btn:hover,
 .profile-btn:hover{
-background:#1e40af;
+transform:translateY(-2px);
 }
 
 .related-section{
-margin-top:40px;
+margin-top:36px;
+}
+
+.related-section h3{
+font-size:28px;
+margin-bottom:18px;
+color:var(--gold);
 }
 
 .related-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
 
 .related-card{
-background:white;
-padding:15px;
-border-radius:6px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+background:var(--card);
+padding:18px;
+border-radius:16px;
+border:1px solid var(--border);
+backdrop-filter:blur(10px);
+box-shadow:var(--shadow);
+transition:0.3s ease;
+}
+
+.related-card:hover{
+transform:translateY(-5px);
 }
 
 .related-card h4{
-margin:10px 0 5px 0;
+margin:0 0 8px 0;
+font-size:20px;
+color:#93c5fd;
 }
 
 .related-card p{
-font-size:13px;
-color:#666;
+font-size:14px;
+color:var(--text-soft);
+line-height:1.6;
+margin-bottom:12px;
 }
 
+.related-card a{
+display:inline-block;
+padding:10px 14px;
+border-radius:10px;
+text-decoration:none;
+background:linear-gradient(135deg,var(--blue),var(--purple));
+color:white;
+font-weight:700;
+font-size:14px;
+}
+
+.message-box{
+margin-top:20px;
+font-size:15px;
+color:#cbd5e1;
+}
+
+@media(max-width:768px){
+body{
+padding:24px 14px 40px;
+}
+
+.video-section{
+padding:18px;
+}
+
+.video-info h2{
+font-size:26px;
+}
+
+.action-buttons{
+flex-direction:column;
+}
+
+.action-buttons button,
+.action-buttons a{
+width:100%;
+text-align:center;
+}
+
+.related-section h3{
+font-size:24px;
+}
+}
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="watch-container">
 
+  <div class="video-section">
 
-<div class="video-section">
+    <video class="video-player" id="videoPlayer" controls>
+      <source id="videoSource" src="" type="video/mp4">
+      Your browser does not support video playback.
+    </video>
 
-<video class="video-player" controls>
+    <div class="video-info">
+      <h2 id="filmTitle">Loading...</h2>
+      <p class="creator" id="filmCreator">Creator: Loading...</p>
+      <p class="description" id="filmDescription">Please wait while the film data loads.</p>
 
-<source src="sample-video.mp4" type="video/mp4">
+      <div class="action-buttons">
+        <a href="request.html" class="request-btn">Request Collaboration</a>
+        <a href="profile.html" class="profile-btn">View Creator Profile</a>
+      </div>
 
-Your browser does not support video playback.
+      <div class="message-box" id="messageBox"></div>
+    </div>
+  </div>
 
-</video>
-
-
-<div class="video-info">
-
-<h2>The Last Scene</h2>
-
-<p class="creator">Creator: Rohan Desai</p>
-
-<p class="description">
-A struggling filmmaker receives one final opportunity to prove himself.
-This short film explores passion, creativity, and the determination
-to achieve dreams despite obstacles.
-</p>
-
-
-<div class="action-buttons">
-
-<button class="request-btn">Request Collaboration</button>
-
-<button class="profile-btn">View Creator Profile</button>
+  <div class="related-section">
+    <h3>More Short Films</h3>
+    <div class="related-grid" id="relatedGrid">
+      <p>Loading related films...</p>
+    </div>
+  </div>
 
 </div>
 
-</div>
+<script>
+const filmTitle = document.getElementById("filmTitle");
+const filmCreator = document.getElementById("filmCreator");
+const filmDescription = document.getElementById("filmDescription");
+const videoPlayer = document.getElementById("videoPlayer");
+const videoSource = document.getElementById("videoSource");
+const relatedGrid = document.getElementById("relatedGrid");
+const messageBox = document.getElementById("messageBox");
 
-</div>
+const params = new URLSearchParams(window.location.search);
+const filmId = params.get("id");
 
+async function loadFilm() {
+  if (!filmId) {
+    messageBox.textContent = "No film id found in URL.";
+    filmTitle.textContent = "Film Not Found";
+    filmCreator.textContent = "";
+    filmDescription.textContent = "Please open this page like watch.html?id=FILM_ID";
+    return;
+  }
 
+  try {
+    const response = await fetch(`http://localhost:5000/api/films/${filmId}`);
+    const film = await response.json();
 
-<div class="related-section">
+    if (!response.ok) {
+      throw new Error(film.message || "Failed to load film");
+    }
 
-<h3>More Short Films</h3>
+    filmTitle.textContent = film.title;
+    filmCreator.textContent = "Creator: " + film.creator;
+    filmDescription.textContent = film.description;
 
-<div class="related-grid">
+    videoSource.src = film.videoUrl;
+    videoPlayer.load();
 
+    document.title = `MovieMark | ${film.title}`;
+  } catch (error) {
+    console.error("Film load error:", error);
+    filmTitle.textContent = "Error Loading Film";
+    filmCreator.textContent = "";
+    filmDescription.textContent = "Could not load film data from database.";
+    messageBox.textContent = error.message;
+  }
+}
 
-<div class="related-card">
+async function loadRelatedFilms() {
+  if (!filmId) {
+    relatedGrid.innerHTML = "<p>No related films available.</p>";
+    return;
+  }
 
-<h4>City Shadows</h4>
+  try {
+    const response = await fetch(`http://localhost:5000/api/films/related/${filmId}`);
+    const films = await response.json();
 
-<p>Crime thriller about hidden secrets in the city.</p>
+    if (!response.ok) {
+      throw new Error("Failed to load related films");
+    }
 
-</div>
+    if (!films.length) {
+      relatedGrid.innerHTML = "<p>No related films found.</p>";
+      return;
+    }
 
+    relatedGrid.innerHTML = films.map(film => `
+      <div class="related-card">
+        <h4>${film.title}</h4>
+        <p>${film.description.substring(0, 80)}...</p>
+        <a href="watch.html?id=${film._id}">Watch Now</a>
+      </div>
+    `).join("");
+  } catch (error) {
+    console.error("Related films error:", error);
+    relatedGrid.innerHTML = "<p>Could not load related films.</p>";
+  }
+}
 
-<div class="related-card">
-
-<h4>Broken Frame</h4>
-
-<p>A photographer uncovers a mysterious truth.</p>
-
-</div>
-
-
-<div class="related-card">
-
-<h4>Silent Voice</h4>
-
-<p>A story of expression through music and emotion.</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-</div>
-
+loadFilm();
+loadRelatedFilms();
+</script>
 
 </body>
-
 </html>

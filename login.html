@@ -1,90 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MovieMark | Login</title>
 
-<link rel="stylesheet" href="css/style.css">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
 
+body{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle at top left,#1e3a8a,#020617 70%);
+color:white;
+}
+
+.login-page{
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+}
+
+.login-card{
+width:100%;
+max-width:420px;
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+padding:40px;
+backdrop-filter:blur(10px);
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+.login-header{
+text-align:center;
+margin-bottom:30px;
+}
+
+.login-header h1{
+font-size:32px;
+margin-bottom:5px;
+background:linear-gradient(90deg,#fbbf24,#60a5fa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.login-header p{
+color:#cbd5e1;
+font-size:14px;
+}
+
+.login-form h2{
+margin-bottom:20px;
+font-size:24px;
+text-align:center;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:6px;
+font-size:14px;
+color:#cbd5e1;
+}
+
+.form-group input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:none;
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+}
+
+.form-group input::placeholder{
+color:#94a3b8;
+}
+
+.login-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:linear-gradient(135deg,#fbbf24,#f59e0b);
+color:#020617;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+margin-top:5px;
+transition:.3s;
+}
+
+.login-btn:hover{
+transform:translateY(-2px);
+}
+
+.login-message{
+margin-top:10px;
+text-align:center;
+font-size:14px;
+min-height:20px;
+}
+
+.login-links{
+text-align:center;
+margin-top:15px;
+}
+
+.login-links a{
+color:#60a5fa;
+text-decoration:none;
+font-size:14px;
+}
+
+.register-link{
+margin-top:18px;
+text-align:center;
+font-size:14px;
+}
+
+.register-link a{
+color:#fbbf24;
+text-decoration:none;
+font-weight:600;
+}
+
+@media(max-width:500px){
+.login-card{
+padding:25px;
+}
+.login-header h1{
+font-size:26px;
+}
+}
+</style>
 </head>
-
 <body>
 
 <div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>🎬 MovieMark</h1>
+      <p>Filmmaker Collaboration Platform</p>
+    </div>
 
-<div class="login-card">
+    <form id="loginForm" class="login-form">
+      <h2>Welcome Back</h2>
 
-<div class="login-header">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required
+        >
+      </div>
 
-<h1>🎬 MovieMark</h1>
-<p>Filmmaker Collaboration Platform</p>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          required
+        >
+      </div>
 
+      <button type="submit" class="login-btn">Login</button>
+
+      <p id="loginMessage" class="login-message"></p>
+
+      <div class="login-links">
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <div class="register-link">
+        Don't have an account?
+        <a href="register.html">Register</a>
+      </div>
+    </form>
+  </div>
 </div>
 
-<form id="loginForm" class="login-form">
+<script>
+const form = document.getElementById("loginForm");
+const message = document.getElementById("loginMessage");
 
-<h2>Welcome Back</h2>
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-<div class="form-group">
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-<label>Email Address</label>
+  message.style.color = "#cbd5e1";
+  message.textContent = "Logging in...";
 
-<input
-type="email"
-id="email"
-placeholder="Enter your email"
-required
->
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
 
-</div>
+    const data = await response.json();
+    console.log("Login response:", data);
 
-<div class="form-group">
+    if (!response.ok) {
+      message.style.color = "red";
+      message.textContent = data.message || "Login failed";
+      return;
+    }
 
-<label>Password</label>
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("userId", data.user._id);
+    localStorage.setItem("userName", data.user.name || "");
+    localStorage.setItem("userRole", data.user.role || "");
+    localStorage.setItem("userEmail", data.user.email || "");
 
-<input
-type="password"
-id="password"
-placeholder="Enter your password"
-required
->
+    console.log("Saved userId:", localStorage.getItem("userId"));
+    console.log("Saved token:", localStorage.getItem("token"));
 
-</div>
+    message.style.color = "lightgreen";
+    message.textContent = "Login successful! Redirecting...";
 
-<button type="submit" class="login-btn">
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
+    }, 1000);
 
-Login
-
-</button>
-
-<p id="loginMessage" class="login-message"></p>
-
-<div class="login-links">
-
-<a href="#">Forgot Password?</a>
-
-</div>
-
-<div class="register-link">
-
-Don't have an account?
-
-<a href="register.html">Register</a>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-<script src="js/auth.js"></script>
+  } catch (error) {
+    console.error("Login error:", error);
+    message.style.color = "red";
+    message.textContent = "Server error";
+  }
+});
+</script>
 
 </body>
-
 </html>

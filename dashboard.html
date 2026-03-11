@@ -109,6 +109,7 @@
       font-weight:600;
       transition:var(--transition);
       border:1px solid transparent;
+      text-decoration:none;
     }
 
     .menu a:hover,
@@ -419,6 +420,7 @@
       display:flex;
       gap:8px;
       flex-wrap:wrap;
+      align-items:center;
     }
 
     .badge{
@@ -483,6 +485,58 @@
       border-radius:14px;
     }
 
+    .modal-overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      backdrop-filter:blur(6px);
+      z-index:999;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .modal-card{
+      width:100%;
+      max-width:680px;
+      background:rgba(15,23,42,0.96);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:20px;
+      padding:24px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.45);
+    }
+
+    .modal-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .modal-card label{
+      display:block;
+      margin-bottom:6px;
+      color:#cbd5e1;
+      font-size:14px;
+    }
+
+    .modal-card input,
+    .modal-card select,
+    .modal-card textarea{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      background:rgba(255,255,255,0.08);
+      color:white;
+      outline:none;
+    }
+
+    .modal-card textarea{
+      resize:none;
+      height:100px;
+    }
+
     @media(max-width:1100px){
       .dashboard{
         grid-template-columns:1fr;
@@ -517,6 +571,10 @@
       }
 
       .stats-grid{
+        grid-template-columns:1fr;
+      }
+
+      .modal-grid{
         grid-template-columns:1fr;
       }
     }
@@ -644,7 +702,7 @@
         <div class="section-header">
           <div>
             <h3>Script Management</h3>
-            <p class="section-subtitle">Upload, view, edit, delete, rank, and track script approvals.</p>
+            <p class="section-subtitle">View your uploaded scripts and performance.</p>
           </div>
           <div class="action-row">
             <button class="action-btn primary-btn" id="uploadScriptBtn">Upload Script</button>
@@ -673,16 +731,13 @@
         <div class="section-header">
           <div>
             <h3>Short Film Section</h3>
-            <p class="section-subtitle">Upload and browse short films from creators on the platform.</p>
+            <p class="section-subtitle">Browse short films shared on the platform.</p>
           </div>
           <div class="action-row">
             <button class="action-btn blue-btn" id="uploadFilmBtn">Upload Film</button>
           </div>
         </div>
-
-        <div id="filmsList" class="items-list">
-          <div class="empty-state">Loading short films...</div>
-        </div>
+        <div id="filmsList" class="items-list"><div class="empty-state">Loading short films...</div></div>
       </section>
 
       <section class="dashboard-section" id="requests">
@@ -717,106 +772,160 @@
         <div class="section-header">
           <div>
             <h3>Chatroom Access</h3>
-            <p class="section-subtitle">Join admin-created temporary discussion rooms before they close.</p>
+            <p class="section-subtitle">Join active temporary discussion rooms.</p>
           </div>
         </div>
-
-        <div id="chatroomsList" class="items-list">
-          <div class="empty-state">Loading active chatrooms...</div>
-        </div>
+        <div id="chatroomsList" class="items-list"><div class="empty-state">Loading active chatrooms...</div></div>
       </section>
 
       <section class="dashboard-section" id="notifications">
         <div class="section-header">
           <div>
             <h3>Notifications System</h3>
-            <p class="section-subtitle">Track script updates, requests, announcements, and room alerts.</p>
+            <p class="section-subtitle">Track script updates, requests, announcements, and alerts.</p>
           </div>
         </div>
-
-        <div id="notificationsList" class="items-list">
-          <div class="empty-state">Loading notifications...</div>
-        </div>
+        <div id="notificationsList" class="items-list"><div class="empty-state">Loading notifications...</div></div>
       </section>
 
       <section class="dashboard-section" id="projects">
         <div class="section-header">
           <div>
             <h3>Project Collaboration Area</h3>
-            <p class="section-subtitle">View projects, roles, collaboration details, and shared team work.</p>
+            <p class="section-subtitle">View your projects and collaboration details.</p>
           </div>
         </div>
-
-        <div id="projectsList" class="items-list">
-          <div class="empty-state">Loading projects...</div>
-        </div>
+        <div id="projectsList" class="items-list"><div class="empty-state">Loading projects...</div></div>
       </section>
 
       <section class="dashboard-section" id="competitions">
         <div class="section-header">
           <div>
             <h3>Competition Section</h3>
-            <p class="section-subtitle">View active competitions, deadlines, submissions, and winners.</p>
+            <p class="section-subtitle">View active competitions and deadlines.</p>
           </div>
         </div>
-
-        <div id="competitionsList" class="items-list">
-          <div class="empty-state">Loading competitions...</div>
-        </div>
+        <div id="competitionsList" class="items-list"><div class="empty-state">Loading competitions...</div></div>
       </section>
 
       <section class="dashboard-section" id="crowdfunding">
         <div class="section-header">
           <div>
             <h3>Crowdfunding Projects</h3>
-            <p class="section-subtitle">See funding campaigns, budgets, progress, and support film projects.</p>
+            <p class="section-subtitle">See funding campaigns and progress.</p>
           </div>
         </div>
-
-        <div id="crowdfundingList" class="items-list">
-          <div class="empty-state">Loading campaigns...</div>
-        </div>
+        <div id="crowdfundingList" class="items-list"><div class="empty-state">Loading campaigns...</div></div>
       </section>
 
       <section class="dashboard-section" id="ranking">
         <div class="section-header">
           <div>
             <h3>Ranking System</h3>
-            <p class="section-subtitle">See top scripts, leaderboard performance, and engagement metrics.</p>
+            <p class="section-subtitle">See top scripts and engagement metrics.</p>
           </div>
         </div>
-
-        <div id="rankingList" class="items-list">
-          <div class="empty-state">Loading rankings...</div>
-        </div>
+        <div id="rankingList" class="items-list"><div class="empty-state">Loading rankings...</div></div>
       </section>
 
       <section class="dashboard-section" id="discover">
         <div class="section-header">
           <div>
             <h3>Discover Creators</h3>
-            <p class="section-subtitle">Explore user profiles, search creators, and connect for projects.</p>
+            <p class="section-subtitle">Explore creators and connect for projects.</p>
           </div>
         </div>
-
-        <div id="discoverList" class="items-list">
-          <div class="empty-state">Loading creators...</div>
-        </div>
+        <div id="discoverList" class="items-list"><div class="empty-state">Loading creators...</div></div>
       </section>
 
       <section class="dashboard-section" id="timeline">
         <div class="section-header">
           <div>
             <h3>Activity Timeline</h3>
-            <p class="section-subtitle">Track your recent uploads, requests, collaborations, and participation.</p>
+            <p class="section-subtitle">Track your recent uploads, requests, and participation.</p>
+          </div>
+        </div>
+        <div id="timelineList" class="items-list"><div class="empty-state">Loading activity timeline...</div></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="requestModal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+        <div>
+          <h3 style="font-size:28px;color:#fbbf24;">Send Collaboration Request</h3>
+          <p style="color:#cbd5e1;margin-top:6px;">Connect professionally with a creator from your dashboard.</p>
+        </div>
+        <button id="closeRequestModalBtn" style="background:none;border:none;color:white;font-size:26px;cursor:pointer;">×</button>
+      </div>
+
+      <form id="dashboardRequestForm">
+        <input type="hidden" id="modalReceiverId">
+        <input type="hidden" id="modalCreatorName">
+
+        <div class="modal-grid">
+          <div>
+            <label>Project Title</label>
+            <input id="modalProjectTitle" type="text" placeholder="Enter project title" required>
+          </div>
+
+          <div>
+            <label>Role Applying For</label>
+            <select id="modalRoleApplying" required>
+              <option value="">Select role</option>
+              <option value="Writer">Writer</option>
+              <option value="Director">Director</option>
+              <option value="Actor">Actor</option>
+              <option value="Editor">Editor</option>
+              <option value="Producer">Producer</option>
+              <option value="Cinematographer">Cinematographer</option>
+            </select>
           </div>
         </div>
 
-        <div id="timelineList" class="items-list">
-          <div class="empty-state">Loading activity timeline...</div>
+        <div class="modal-grid" style="margin-top:14px;">
+          <div>
+            <label>Experience Level</label>
+            <select id="modalExperienceLevel" required>
+              <option value="">Select level</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Professional">Professional</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Availability</label>
+            <input id="modalAvailability" type="text" placeholder="Weekends / Full time / Evenings">
+          </div>
         </div>
-      </section>
-    </main>
+
+        <div style="margin-top:14px;">
+          <label>Portfolio Link</label>
+          <input id="modalPortfolioLink" type="url" placeholder="Paste portfolio / work link">
+        </div>
+
+        <div style="margin-top:14px;">
+          <label>Why do you want to join?</label>
+          <textarea id="modalWhyJoin" placeholder="Explain why this collaboration interests you..." required></textarea>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label>What can you contribute?</label>
+          <textarea id="modalContributionPlan" placeholder="Describe your contribution plan..." required></textarea>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label>Professional Message</label>
+          <textarea id="modalRequestMessage" placeholder="Write a respectful request message..." required></textarea>
+        </div>
+
+        <button type="submit" style="margin-top:16px;width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#081120;font-weight:800;cursor:pointer;">Send Request</button>
+        <p id="dashboardRequestMessage" style="margin-top:12px;text-align:center;min-height:20px;color:#cbd5e1;"></p>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -825,8 +934,21 @@
     const globalMessage = document.getElementById("globalMessage");
     const logoutBtn = document.getElementById("logoutBtn");
 
+    const requestModal = document.getElementById("requestModal");
+    const closeRequestModalBtn = document.getElementById("closeRequestModalBtn");
+    const dashboardRequestForm = document.getElementById("dashboardRequestForm");
+    const dashboardRequestMessage = document.getElementById("dashboardRequestMessage");
+
     function getToken() {
       return localStorage.getItem("token") || sessionStorage.getItem("token");
+    }
+
+    function getStoredUser() {
+      try {
+        return JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user") || "{}");
+      } catch {
+        return {};
+      }
     }
 
     function showMessage(message, color = "lightgreen") {
@@ -840,8 +962,10 @@
     function logoutUser() {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("userId");
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("user");
+      sessionStorage.removeItem("userId");
       window.location.href = "login.html";
     }
 
@@ -859,7 +983,7 @@
 
       try {
         data = await response.json();
-      } catch (error) {
+      } catch {
         data = {};
       }
 
@@ -879,6 +1003,35 @@
       return name.trim().charAt(0).toUpperCase() || "U";
     }
 
+    function openRequestModal(receiverId, creatorName, suggestedTitle = "Direct Collaboration Request") {
+      document.getElementById("modalReceiverId").value = receiverId || "";
+      document.getElementById("modalCreatorName").value = creatorName || "";
+      document.getElementById("modalProjectTitle").value = suggestedTitle || "Direct Collaboration Request";
+      dashboardRequestMessage.textContent = "";
+      requestModal.style.display = "flex";
+    }
+
+    function closeRequestModal() {
+      requestModal.style.display = "none";
+      dashboardRequestForm.reset();
+      dashboardRequestMessage.textContent = "";
+    }
+
+    async function updateRequestStatus(requestId, status) {
+      try {
+        await fetchJson(`${API_BASE_URL}/requests/${requestId}/status`, {
+          method: "PUT",
+          headers: authHeaders(),
+          body: JSON.stringify({ status })
+        });
+
+        showMessage(`Request ${status} successfully`);
+        await loadRequests();
+      } catch (error) {
+        showMessage(error.message, "red");
+      }
+    }
+
     async function loadProfile() {
       try {
         const data = await fetchJson(`${API_BASE_URL}/auth/profile`, {
@@ -886,8 +1039,9 @@
           headers: authHeaders(false)
         });
 
-        const name = data.name || "User";
-        const role = data.role || "filmlover";
+        const user = data.user || data;
+        const name = user.name || "User";
+        const role = user.role || "filmlover";
 
         document.getElementById("topUserName").textContent = name;
         document.getElementById("topUserRole").textContent = role;
@@ -896,15 +1050,13 @@
         document.getElementById("profileAvatar").textContent = initials(name);
         document.getElementById("profileName").textContent = name;
         document.getElementById("profileRole").textContent = role;
-        document.getElementById("profileEmail").textContent = data.email || "-";
-        document.getElementById("profileStatus").textContent = data.status || "-";
-        document.getElementById("profileBio").textContent = data.bio || "No bio available";
-        document.getElementById("profileCreated").textContent = safeDate(data.createdAt);
+        document.getElementById("profileEmail").textContent = user.email || "-";
+        document.getElementById("profileStatus").textContent = user.status || "-";
+        document.getElementById("profileBio").textContent = user.bio || "No bio available";
+        document.getElementById("profileCreated").textContent = safeDate(user.createdAt);
       } catch (error) {
         showMessage(error.message, "red");
-        setTimeout(() => {
-          logoutUser();
-        }, 1000);
+        setTimeout(() => logoutUser(), 1000);
       }
     }
 
@@ -929,9 +1081,9 @@
           <tr>
             <td>${script.title || ""}</td>
             <td><span class="badge ${script.status || "pending"}">${script.status || "pending"}</span></td>
-            <td>${script.rank || 0}</td>
+            <td>${script.rankingScore || 0}</td>
             <td>${safeDate(script.createdAt)}</td>
-            <td>${script.file ? `<a href="http://localhost:5000/uploads/${script.file}" target="_blank" style="color:#93c5fd;">Download</a>` : "No file"}</td>
+            <td>${script.scriptUrl ? `<a href="http://localhost:5000${script.scriptUrl}" target="_blank" style="color:#93c5fd;">Open</a>` : "No file"}</td>
           </tr>
         `).join("");
       } catch (error) {
@@ -961,8 +1113,8 @@
             <h5>${film.title || "Untitled Film"}</h5>
             <p>${film.description || "No description available"}</p>
             <div class="item-meta">
-              <span class="badge active">${film.creator?.name || "Unknown Creator"}</span>
-              ${film.video ? `<a href="http://localhost:5000/uploads/${film.video}" target="_blank" style="color:#93c5fd;">Watch / Download</a>` : ""}
+              <span class="badge active">${film.creator?.name || film.creatorName || "Unknown Creator"}</span>
+              ${(film.video || film.videoUrl) ? `<a href="http://localhost:5000${film.video || film.videoUrl}" target="_blank" style="color:#93c5fd;">Watch / Download</a>` : ""}
             </div>
           </div>
         `).join("");
@@ -995,9 +1147,16 @@
           <div class="item-card">
             <h5>${req.projectTitle || "Project Request"}</h5>
             <p>From: ${req.sender?.name || "Unknown"} | Role: ${req.role || "-"}</p>
+            <p>${req.requestMessage || ""}</p>
             <div class="item-meta">
               <span class="badge ${req.status || "pending"}">${req.status || "pending"}</span>
             </div>
+            ${req.status === "pending" ? `
+              <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="action-btn green-btn" onclick="updateRequestStatus('${req._id}','accepted')">Accept</button>
+                <button class="action-btn orange-btn" onclick="updateRequestStatus('${req._id}','rejected')">Reject</button>
+              </div>
+            ` : ""}
           </div>
         `).join("") : `<div class="empty-state">No received requests</div>`;
 
@@ -1005,6 +1164,7 @@
           <div class="item-card">
             <h5>${req.projectTitle || "Project Request"}</h5>
             <p>To: ${req.receiver?.name || "Unknown"} | Role: ${req.role || "-"}</p>
+            <p>${req.requestMessage || ""}</p>
             <div class="item-meta">
               <span class="badge ${req.status || "pending"}">${req.status || "pending"}</span>
             </div>
@@ -1036,7 +1196,7 @@
         list.innerHTML = chatrooms.map((room) => `
           <div class="item-card">
             <h5>${room.title || "Project Chatroom"}</h5>
-            <p>${room.topic || ""}</p>
+            <p>${room.topic || room.description || ""}</p>
             <div class="item-meta">
               <span class="badge ${room.status === "closed" ? "closed" : "active"}">${room.status || "active"}</span>
               <span class="badge active">${room.startTime ? new Date(room.startTime).toLocaleString() : "-"}</span>
@@ -1069,7 +1229,7 @@
         list.innerHTML = notifications.map((note) => `
           <div class="item-card">
             <h5>${note.title || "Notification"}</h5>
-            <p>${note.message || ""}</p>
+            <p>${note.message || note.description || ""}</p>
             <div class="item-meta">
               <span class="badge active">${safeDate(note.createdAt)}</span>
             </div>
@@ -1101,7 +1261,7 @@
             <h5>${project.title || "Untitled Project"}</h5>
             <p>${project.description || "No description available"}</p>
             <div class="item-meta">
-              <span class="badge active">${project.role || "Contributor"}</span>
+              <span class="badge active">${project.role || project.status || "Contributor"}</span>
             </div>
           </div>
         `).join("");
@@ -1190,11 +1350,12 @@
         list.innerHTML = rankings.map((script, index) => `
           <div class="item-card">
             <h5>#${index + 1} ${script.title || "Untitled Script"}</h5>
-            <p>Writer: ${script.writer?.name || "Unknown"}</p>
+            <p>Writer: ${script.writer || "Unknown"}</p>
             <div class="item-meta">
-              <span class="badge active">Votes: ${script.votes || 0}</span>
-              <span class="badge active">Reviews: ${script.reviews || 0}</span>
-              <span class="badge approved">Rank: ${script.rank || index + 1}</span>
+              <span class="badge active">Likes: ${script.likes || 0}</span>
+              <span class="badge active">Views: ${script.views || 0}</span>
+              <span class="badge approved">Rank Score: ${script.rankingScore || 0}</span>
+              <a href="request.html?scriptId=${script._id}" style="color:#93c5fd;font-weight:700;">Send Request</a>
             </div>
           </div>
         `).join("");
@@ -1225,6 +1386,7 @@
             <p>${user.bio || "No bio available"}</p>
             <div class="item-meta">
               <span class="badge active">${user.role || "filmlover"}</span>
+              <button class="action-btn primary-btn" onclick="openRequestModal('${user._id}', '${(user.name || "").replace(/'/g, "\\'")}', 'Direct Collaboration Request')">Send Request</button>
             </div>
           </div>
         `).join("");
@@ -1262,6 +1424,55 @@
         list.innerHTML = `<div class="empty-state">${error.message}</div>`;
       }
     }
+
+    dashboardRequestForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const user = getStoredUser();
+
+      try {
+        dashboardRequestMessage.style.color = "#cbd5e1";
+        dashboardRequestMessage.textContent = "Sending request...";
+
+        const payload = {
+          receiverId: document.getElementById("modalReceiverId").value,
+          creatorName: document.getElementById("modalCreatorName").value,
+          projectTitle: document.getElementById("modalProjectTitle").value.trim(),
+          applicantName: user.name || "MovieMark User",
+          applicantEmail: user.email || "",
+          roleApplying: document.getElementById("modalRoleApplying").value,
+          experienceLevel: document.getElementById("modalExperienceLevel").value,
+          portfolioLink: document.getElementById("modalPortfolioLink").value.trim(),
+          availability: document.getElementById("modalAvailability").value.trim(),
+          whyJoin: document.getElementById("modalWhyJoin").value.trim(),
+          contributionPlan: document.getElementById("modalContributionPlan").value.trim(),
+          requestMessage: document.getElementById("modalRequestMessage").value.trim()
+        };
+
+        const response = await fetchJson(`${API_BASE_URL}/requests/send`, {
+          method: "POST",
+          headers: authHeaders(),
+          body: JSON.stringify(payload)
+        });
+
+        dashboardRequestMessage.style.color = "lightgreen";
+        dashboardRequestMessage.textContent = response.message || "Request sent successfully.";
+
+        await loadRequests();
+
+        setTimeout(() => {
+          closeRequestModal();
+        }, 900);
+      } catch (error) {
+        dashboardRequestMessage.style.color = "#fca5a5";
+        dashboardRequestMessage.textContent = error.message || "Could not send request";
+      }
+    });
+
+    closeRequestModalBtn.addEventListener("click", closeRequestModal);
+    requestModal.addEventListener("click", (e) => {
+      if (e.target === requestModal) closeRequestModal();
+    });
 
     document.getElementById("editProfileBtn").addEventListener("click", () => {
       window.location.href = "profile.html";

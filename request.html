@@ -1,72 +1,689 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MovieMark | Request Collaboration</title>
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieMark | Collaboration Request</title>
+<link rel="icon" href="data:,">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+:root{
+--gold:#fbbf24;
+--gold-dark:#f59e0b;
+--blue:#2563eb;
+--purple:#7c3aed;
+--green:#22c55e;
+--soft:#cbd5e1;
+--muted:#94a3b8;
+--danger:#ef4444;
+--card:rgba(255,255,255,0.06);
+--border:rgba(255,255,255,0.10);
+--shadow:0 20px 50px rgba(0,0,0,0.45);
+}
+
+body{
+min-height:100vh;
+background:
+radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 20%),
+radial-gradient(circle at bottom right, rgba(251,191,36,0.10), transparent 20%),
+linear-gradient(135deg,#020617,#0f172a,#172554);
+color:white;
+padding:30px 18px;
+}
+
+.request-page{
+max-width:1280px;
+margin:auto;
+}
+
+.request-header{
+text-align:center;
+margin-bottom:28px;
+}
+
+.request-header h1{
+font-size:40px;
+background:linear-gradient(90deg,#fbbf24,#60a5fa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:10px;
+}
+
+.request-header p{
+color:var(--soft);
+max-width:760px;
+margin:auto;
+line-height:1.7;
+font-size:15px;
+}
+
+.badge-row{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:10px;
+margin-top:14px;
+}
+
+.badge{
+padding:8px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+color:#e2e8f0;
+}
+
+.request-layout{
+display:grid;
+grid-template-columns:1.55fr 1fr;
+gap:24px;
+}
+
+.request-card,
+.side-card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:22px;
+padding:24px;
+backdrop-filter:blur(12px);
+box-shadow:var(--shadow);
+}
+
+.card-title{
+font-size:26px;
+color:var(--gold);
+margin-bottom:8px;
+font-weight:800;
+}
+
+.card-subtitle{
+color:var(--soft);
+margin-bottom:20px;
+line-height:1.6;
+font-size:14px;
+}
+
+.summary-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:16px;
+}
+
+.summary-item{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:14px;
+padding:14px;
+}
+
+.summary-item h4{
+font-size:13px;
+color:var(--muted);
+margin-bottom:6px;
+font-weight:600;
+}
+
+.summary-item p{
+font-size:14px;
+color:#e2e8f0;
+line-height:1.5;
+}
+
+.project-desc{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:14px;
+padding:16px;
+margin-bottom:18px;
+color:#e2e8f0;
+line-height:1.7;
+font-size:14px;
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:7px;
+font-size:14px;
+color:var(--soft);
+font-weight:600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+width:100%;
+padding:12px 13px;
+border-radius:10px;
+border:none;
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+font-size:14px;
+}
+
+.form-group textarea{
+resize:none;
+height:110px;
+}
+
+input::placeholder,
+textarea::placeholder{
+color:#94a3b8;
+}
+
+.progress-wrap{
+margin-bottom:16px;
+}
+
+.progress-label{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:13px;
+color:var(--soft);
+margin-bottom:8px;
+}
+
+.progress-bar{
+width:100%;
+height:10px;
+border-radius:999px;
+background:rgba(255,255,255,0.08);
+overflow:hidden;
+}
+
+.progress-fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,var(--gold),#60a5fa);
+transition:0.3s;
+}
+
+.role-preview{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:4px;
+margin-bottom:10px;
+}
+
+.role-pill{
+padding:7px 12px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+background:rgba(124,58,237,0.16);
+color:#ddd6fe;
+border:1px solid rgba(196,181,253,0.16);
+}
+
+.request-btn{
+width:100%;
+padding:13px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+color:#020617;
+font-weight:800;
+font-size:15px;
+cursor:pointer;
+margin-top:10px;
+transition:.25s;
+}
+
+.request-btn:hover{
+transform:translateY(-2px);
+}
+
+.request-message{
+margin-top:12px;
+text-align:center;
+font-size:14px;
+min-height:20px;
+}
+
+.side-card{
+margin-bottom:18px;
+}
+
+.side-card h3{
+font-size:20px;
+color:var(--gold);
+margin-bottom:12px;
+}
+
+.side-card p,
+.side-card li{
+color:var(--soft);
+font-size:14px;
+line-height:1.7;
+}
+
+.side-card ul{
+padding-left:18px;
+}
+
+.info-chip-row{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+.info-chip{
+padding:7px 11px;
+border-radius:999px;
+background:rgba(255,255,255,0.08);
+font-size:12px;
+color:#e2e8f0;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.note-box{
+background:rgba(34,197,94,0.10);
+border:1px solid rgba(34,197,94,0.2);
+border-radius:14px;
+padding:14px;
+color:#dcfce7;
+font-size:14px;
+line-height:1.6;
+margin-top:10px;
+}
+
+@media(max-width:980px){
+.request-layout{
+grid-template-columns:1fr;
+}
+}
+
+@media(max-width:700px){
+.form-row,
+.summary-grid{
+grid-template-columns:1fr;
+}
+.request-header h1{
+font-size:32px;
+}
+}
+</style>
 </head>
 <body>
 
-  <section class="request-page">
-    <div class="request-container">
-      <div class="request-header">
-        <h1>Collaboration Request</h1>
-        <p>Send a request to connect and work on a film project together.</p>
+<section class="request-page">
+
+<div class="request-header">
+<h1>Collaboration Request</h1>
+<p>
+Send a professional request to join a script, short film, or creative project on MovieMark.
+This page is designed to make collaboration feel structured, clear, and production-ready.
+</p>
+
+<div class="badge-row">
+<span class="badge">Writers</span>
+<span class="badge">Directors</span>
+<span class="badge">Actors</span>
+<span class="badge">Editors</span>
+<span class="badge">Producers</span>
+<span class="badge">Cinematographers</span>
+</div>
+</div>
+
+<div class="request-layout">
+
+<div class="request-card">
+  <h2 class="card-title">Project Collaboration Form</h2>
+  <p class="card-subtitle">
+    Introduce yourself professionally, explain your contribution, and submit a meaningful collaboration request.
+  </p>
+
+  <div class="summary-grid">
+    <div class="summary-item">
+      <h4>Selected Project</h4>
+      <p id="summaryTitle">Loading project...</p>
+    </div>
+
+    <div class="summary-item">
+      <h4>Creator</h4>
+      <p id="summaryCreator">Loading...</p>
+    </div>
+
+    <div class="summary-item">
+      <h4>Genre</h4>
+      <p id="summaryGenre">-</p>
+    </div>
+
+    <div class="summary-item">
+      <h4>Status</h4>
+      <p id="summaryStatus">-</p>
+    </div>
+  </div>
+
+  <div class="project-desc" id="summaryDescription">
+    The selected project details will appear here automatically when a script is chosen from the scripts page.
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Request Strength</span>
+      <span id="progressText">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <form id="requestForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="applicantName">Your Name</label>
+        <input type="text" id="applicantName" placeholder="Enter your full name" required>
       </div>
 
-      <div class="request-card">
-        <form id="requestForm" class="request-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="projectTitle">Project Title</label>
-              <input type="text" id="projectTitle" placeholder="Enter project title" required />
-            </div>
-
-            <div class="form-group">
-              <label for="creatorName">Creator Name</label>
-              <input type="text" id="creatorName" placeholder="Enter creator name" required />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="roleNeeded">Role Needed</label>
-              <select id="roleNeeded" required>
-                <option value="">Select role</option>
-                <option value="Writer">Writer</option>
-                <option value="Director">Director</option>
-                <option value="Actor">Actor</option>
-                <option value="Editor">Editor</option>
-                <option value="Producer">Producer</option>
-                <option value="Cinematographer">Cinematographer</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="deadline">Expected Timeline</label>
-              <input type="text" id="deadline" placeholder="e.g. 2 weeks / 1 month" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="projectDescription">Project Description</label>
-            <textarea id="projectDescription" placeholder="Write about your project..." required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="requestMessage">Message</label>
-            <textarea id="requestMessage" placeholder="Write your collaboration message..." required></textarea>
-          </div>
-
-          <button type="submit" class="request-btn">Send Request</button>
-
-          <p id="requestMessageBox" class="request-message"></p>
-        </form>
+      <div class="form-group">
+        <label for="applicantEmail">Your Email</label>
+        <input type="email" id="applicantEmail" placeholder="Enter your email" required>
       </div>
     </div>
-  </section>
 
-  <script src="js/request.js"></script>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="roleApplying">Role Applying For</label>
+        <select id="roleApplying" required>
+          <option value="">Select role</option>
+          <option value="Writer">Writer</option>
+          <option value="Director">Director</option>
+          <option value="Actor">Actor</option>
+          <option value="Editor">Editor</option>
+          <option value="Producer">Producer</option>
+          <option value="Cinematographer">Cinematographer</option>
+          <option value="Music Composer">Music Composer</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="experienceLevel">Experience Level</label>
+        <select id="experienceLevel" required>
+          <option value="">Select level</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+          <option value="Professional">Professional</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="role-preview" id="rolePreview"></div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="portfolioLink">Portfolio / Work Link</label>
+        <input type="url" id="portfolioLink" placeholder="Paste portfolio or previous work link">
+      </div>
+
+      <div class="form-group">
+        <label for="availability">Availability</label>
+        <input type="text" id="availability" placeholder="Example: Weekends / Evenings / Full time">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="whyJoin">Why do you want to join this project?</label>
+      <textarea id="whyJoin" placeholder="Explain why this project interests you..." required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="contributionPlan">What can you contribute?</label>
+      <textarea id="contributionPlan" placeholder="Explain your skills, strengths, and contribution plan..." required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="requestMessage">Professional Message to Creator</label>
+      <textarea id="requestMessage" placeholder="Write a respectful and clear collaboration message..." required></textarea>
+    </div>
+
+    <button type="submit" class="request-btn">Send Collaboration Request</button>
+    <p id="requestMessageBox" class="request-message"></p>
+  </form>
+</div>
+
+<div>
+  <div class="side-card">
+    <h3>Request Tips</h3>
+    <ul>
+      <li>Choose the role that best matches your actual skills.</li>
+      <li>Write clearly about your interest in the project.</li>
+      <li>Describe how your contribution can improve the final output.</li>
+      <li>Include a portfolio or previous work link whenever possible.</li>
+    </ul>
+  </div>
+
+  <div class="side-card">
+    <h3>Workflow Preview</h3>
+    <div class="info-chip-row">
+      <span class="info-chip">Submit Request</span>
+      <span class="info-chip">Creator Reviews</span>
+      <span class="info-chip">Status Updates</span>
+      <span class="info-chip">Team Collaboration</span>
+    </div>
+    <div class="note-box">
+      A strong request helps creators quickly understand your value and increases the chance of meaningful collaboration.
+    </div>
+  </div>
+
+  <div class="side-card">
+    <h3>Why Judges Like This</h3>
+    <p>
+      This page demonstrates a real collaboration pipeline in MovieMark: script discovery, role-specific requests,
+      structured professional communication, and project-level team building.
+    </p>
+  </div>
+</div>
+
+</div>
+
+</section>
+
+<script>
+const form = document.getElementById("requestForm");
+const messageBox = document.getElementById("requestMessageBox");
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const roleApplying = document.getElementById("roleApplying");
+const rolePreview = document.getElementById("rolePreview");
+
+const applicantName = document.getElementById("applicantName");
+const applicantEmail = document.getElementById("applicantEmail");
+const experienceLevel = document.getElementById("experienceLevel");
+const portfolioLink = document.getElementById("portfolioLink");
+const availability = document.getElementById("availability");
+const whyJoin = document.getElementById("whyJoin");
+const contributionPlan = document.getElementById("contributionPlan");
+const requestMessage = document.getElementById("requestMessage");
+
+const summaryTitle = document.getElementById("summaryTitle");
+const summaryCreator = document.getElementById("summaryCreator");
+const summaryGenre = document.getElementById("summaryGenre");
+const summaryStatus = document.getElementById("summaryStatus");
+const summaryDescription = document.getElementById("summaryDescription");
+
+const API_BASE_URL = "http://localhost:5000/api";
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+const urlParams = new URLSearchParams(window.location.search);
+const scriptId = urlParams.get("scriptId");
+
+function updateProgress() {
+  const fields = [
+    applicantName.value.trim(),
+    applicantEmail.value.trim(),
+    roleApplying.value.trim(),
+    experienceLevel.value.trim(),
+    whyJoin.value.trim(),
+    contributionPlan.value.trim(),
+    requestMessage.value.trim()
+  ];
+
+  let filled = 0;
+  fields.forEach(field => {
+    if (field) filled++;
+  });
+
+  const percent = Math.round((filled / fields.length) * 100);
+  progressFill.style.width = percent + "%";
+  progressText.textContent = percent + "%";
+}
+
+function updateRolePreview() {
+  const role = roleApplying.value;
+  if (!role) {
+    rolePreview.innerHTML = "";
+    return;
+  }
+
+  rolePreview.innerHTML = `<span class="role-pill">${role} Applicant</span>`;
+}
+
+async function loadScriptDetails() {
+  if (!scriptId) {
+    summaryTitle.textContent = "No project selected";
+    summaryCreator.textContent = "Open this page from scripts.html";
+    summaryDescription.textContent = "Choose a script from the scripts page so the request can be linked to a real project.";
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/scripts/${scriptId}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Could not load project");
+    }
+
+    const script = data.script || data;
+
+    summaryTitle.textContent = script.title || "Untitled Project";
+    summaryCreator.textContent = script.writer || "Unknown Creator";
+    summaryGenre.textContent = script.genre || "Not specified";
+    summaryStatus.textContent = script.status || "open";
+    summaryDescription.textContent = script.description || "No description available.";
+  } catch (error) {
+    console.error("Load script details error:", error);
+    summaryTitle.textContent = "Project unavailable";
+    summaryCreator.textContent = "-";
+    summaryGenre.textContent = "-";
+    summaryStatus.textContent = "-";
+    summaryDescription.textContent = "Could not load selected project details from backend.";
+  }
+}
+
+if (user && user.name) {
+  applicantName.value = user.name || "";
+  applicantEmail.value = user.email || "";
+}
+
+[
+  applicantName,
+  applicantEmail,
+  roleApplying,
+  experienceLevel,
+  portfolioLink,
+  availability,
+  whyJoin,
+  contributionPlan,
+  requestMessage
+].forEach(input => {
+  input.addEventListener("input", updateProgress);
+});
+
+roleApplying.addEventListener("change", updateRolePreview);
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if (!token) {
+    messageBox.style.color = "#fca5a5";
+    messageBox.textContent = "Please login first.";
+    return;
+  }
+
+  const payload = {
+    scriptId,
+    applicantName: applicantName.value.trim(),
+    applicantEmail: applicantEmail.value.trim(),
+    roleApplying: roleApplying.value,
+    experienceLevel: experienceLevel.value,
+    portfolioLink: portfolioLink.value.trim(),
+    availability: availability.value.trim(),
+    whyJoin: whyJoin.value.trim(),
+    contributionPlan: contributionPlan.value.trim(),
+    requestMessage: requestMessage.value.trim(),
+
+    projectTitle: summaryTitle.textContent,
+    creatorName: summaryCreator.textContent,
+    genre: summaryGenre.textContent,
+    projectStatus: summaryStatus.textContent
+  };
+
+  try {
+    messageBox.style.color = "#cbd5e1";
+    messageBox.textContent = "Sending request...";
+
+    const response = await fetch("http://localhost:5000/api/requests/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Request failed");
+    }
+
+    messageBox.style.color = "lightgreen";
+    messageBox.textContent = "Collaboration request sent successfully.";
+
+    form.reset();
+    if (user && user.name) {
+      applicantName.value = user.name || "";
+      applicantEmail.value = user.email || "";
+    }
+    updateProgress();
+    updateRolePreview();
+  } catch (error) {
+    console.error("Request submit error:", error);
+    messageBox.style.color = "#fca5a5";
+    messageBox.textContent = error.message || "Server error";
+  }
+});
+
+loadScriptDetails();
+updateProgress();
+updateRolePreview();
+</script>
+
 </body>
 </html>
